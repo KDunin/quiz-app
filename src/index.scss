@@ -1,0 +1,16 @@
+@import './reset';
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+$primary-color: #182825;
+$secondary-color: black; //#FDFCFD;
+$third-color: #7F7979;
+$fourth-color: #C1BDB3;
+$text-color: #5F5B6B;
+
+@import './views/App/app';
+@import './views/Homepage/homepage';
+@import './views/Training/training';
+@import './views/Test/test';
+
+@import './components/Button/button';
+@import './components/Navigation/navigation';
