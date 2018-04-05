@@ -11,17 +11,9 @@
     font-weight: bold;
   }
 
-  &__controls {
+  &__form {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-
-    margin-top: 20px;
-    min-height: 200px;
-
-    &__button {
-      
-    }
   }
+
 }
