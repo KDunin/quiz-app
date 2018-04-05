@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { joinClasses } from '../../utils/classUtils'
 import { shuffleArray } from '../../utils/arrayUtils'
 
@@ -15,30 +16,23 @@ class QuestionBox extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      answers: [],
-      answer:  '',
-      correct: false,
+      question: props.question,
+      answers:  shuffleArray(props.answers),
+      answer:   '',
+      correct:  props.correct,
     }
     this.renderAnswers = this.renderAnswers.bind(this)
     this.handleAnswer = this.handleAnswer.bind(this)
   }
-  componentWillMount() {
-    const { itemToRender } = this.props
-    const answers = shuffleArray(itemToRender.answers)
-    this.setState({
-      answer:  '',
-      correct: false,
-      answers,
-    })
-  }
 
   componentWillReceiveProps(nextProps) {
-    const { itemToRender } = nextProps
-    const answers = shuffleArray(itemToRender.answers)
+    const { question, answers, correct } = nextProps
+    const shuffledAnswers = shuffleArray(answers)
     this.setState({
       answer:  '',
-      correct: false,
-      answers,
+      answers: shuffledAnswers,
+      correct,
+      question,
     })
   }
 
@@ -46,15 +40,15 @@ class QuestionBox extends PureComponent {
     if (this.state.answer) {
       return
     }
-    const { itemToRender, onAnswer } = this.props
+    const { onAnswer } = this.props
     const answer = currentTarget.textContent
-    const correct = currentTarget.textContent === itemToRender.correct
-    this.setState({ answer, correct })
+    this.setState({ answer })
     setTimeout(onAnswer, 2000)
   }
 
   renderAnswers() {
-    const { answers, answer, correct } = this.state
+    const { answers, answer } = this.state
+    const { correct } = this.props
     return answers.map(text => (
       <span
         key={text}
@@ -67,10 +61,10 @@ class QuestionBox extends PureComponent {
   }
 
   render() {
-    const { itemToRender } = this.props
+    const { question } = this.props
     return (
       <div className={Style.box}>
-        <span className={Style.question}>{itemToRender.question}</span>
+        <span className={Style.question}>{question}</span>
         <div className={Style.answers}>
           {this.renderAnswers()}
         </div>
@@ -82,15 +76,27 @@ class QuestionBox extends PureComponent {
 export default QuestionBox
 
 QuestionBox.defaultProps = {
-  itemToRender: { question: '', answers: [] },
+  question: '',
+  answers:  [],
+}
+
+QuestionBox.propTypes = {
+  /** */
+  question: PropTypes.string,
+  /** */
+  answers:  PropTypes.array,
+  /** */
+  correct:  PropTypes.string,
+  /** */
+  onAnswer: PropTypes.func,
 }
 
 const conditionClass = (answer, text, correct) => {
-  if (answer !== text ) {
+  if (!answer) {
     return
-  } else if (answer === text && !correct) {
-    return Style.wrong
-  } else {
+  } else if (text === correct) {
     return Style.correct
+  } else if (answer === text) {
+    return Style.wrong
   }
 }

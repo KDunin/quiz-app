@@ -4,12 +4,12 @@ import Homepage from '../../views/Homepage/Homepage'
 import Training from '../../views/Training/Training'
 import Test from '../../views/Test/Test'
 
-const ProtectedRouter = () => (
+const Router = () => (
   <Switch>
     <Route exact path="/" component={Homepage} />
-    <Route exact path="/training" component={Training} />
-    <Route exact path="/test" component={Test} />
+    <Route path="/training" component={Training} />
+    <Route path="/test" component={Test} />
   </Switch>
 )
 
-export default ProtectedRouter
+export default Router

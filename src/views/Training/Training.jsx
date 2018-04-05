@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { mapStoreToProps } from './storeHelper'
 import QuestionBox from '../../components/QuestionBox/QuestionBox'
@@ -42,6 +43,11 @@ class Trening extends PureComponent {
 }
 
 export default connect(mapStoreToProps, null)(Trening)
+
+Trening.propTypes = {
+  /** */
+  questions: PropTypes.array,
+}
 
 const setItemsToRender = (questions, renderedItem) => {
   const rndNumber = Math.floor(Math.random() * (questions.length - 1))

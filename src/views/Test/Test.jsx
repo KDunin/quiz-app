@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { mapStoreToProps } from './storeHelper'
+import { mapStoreToProps, mapDispatchToProps } from './storeHelper'
 import QuestionBox from '../../components/QuestionBox/QuestionBox'
+import { isEmpty } from '../../utils/arrayUtils'
 
 const Style = {
   test: 'test',
@@ -11,29 +13,38 @@ class Test extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      itemToRender: { answers: [] },
+      question: '',
+      correct:  '',
+      answers:  [],
     }
     this.handleAnswer = this.handleAnswer.bind(this)
   }
 
-  componentWillMount() {
-    this.setState(setItemsToRender(this.props.questions, this.state.itemToRender))
+  componentDidMount() {
+    const { questions, onTimerStart } = this.props
+    if (isEmpty(questions)) {
+      return
+    }
+    this.setState(setItemsToRender(questions, this.state.question), onTimerStart(10000))
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(setItemsToRender(nextProps.questions, this.state.itemToRender))
+    this.setState(setItemsToRender(nextProps.questions, this.state.question))
   }
 
   handleAnswer() {
-    this.setState(setItemsToRender(this.props.questions, this.state.itemToRender))
+    const { questions, onTimerStart } = this.props
+    this.setState(setItemsToRender(questions, this.state.question), onTimerStart(10000))
   }
 
   render() {
-    const { itemToRender } = this.state
+    const { question, answers, correct } = this.state
     return (
       <div className={Style.test}>
         <QuestionBox 
-          itemToRender={itemToRender}
+          question={question}
+          answers={answers}
+          correct={correct}
           onAnswer={this.handleAnswer}
         />
       </div>
@@ -41,12 +52,26 @@ class Test extends PureComponent {
   }
 }
 
-export default connect(mapStoreToProps, null)(Test)
+export default connect(mapStoreToProps, mapDispatchToProps)(Test)
 
-const setItemsToRender = (questions, renderedItem) => {
+Test.defaultProps = {
+  questions: [],
+}
+
+Test.propTypes = {
+  /** */
+  questions:    PropTypes.array,
+  /** */
+  onTimerStart: PropTypes.func,
+}
+
+
+const setItemsToRender = (questions, question) => {
   const rndNumber = Math.floor(Math.random() * (questions.length - 1))
-  const itemToRender = questions.filter(item => item !== renderedItem)[rndNumber]
+  const itemToRender = questions.filter(item => item.question !== question)[rndNumber]
   return {
-    itemToRender,
+    question: itemToRender.question,
+    answers:  itemToRender.answers,
+    correct:  itemToRender.correct,
   }
 }
