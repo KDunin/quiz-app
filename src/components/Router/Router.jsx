@@ -4,7 +4,7 @@ import Homepage from '../../views/Homepage/Homepage'
 import Training from '../../views/Training/Training'
 import Test from '../../views/Test/Test'
 
-const ProtectedRouter = () => (
+const Router = () => (
   <Switch>
     <Route exact path="/" component={Homepage} />
     <Route exact path="/training" component={Training} />
@@ -12,4 +12,4 @@ const ProtectedRouter = () => (
   </Switch>
 )
 
-export default ProtectedRouter
+export default Router

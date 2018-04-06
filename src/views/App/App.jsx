@@ -1,5 +1,5 @@
 import React from 'react'
-import ProtectedRouter from '../../components/ProtectedRouter/ProtectedRouter'
+import Router from '../../components/Router/Router'
 import Navigation from '../../components/Navigation/Navigation'
 
 const Style = {
@@ -9,7 +9,7 @@ const Style = {
 const App = () => (
   <div className={Style.app}>
     <Navigation />
-    <ProtectedRouter />
+    <Router />
   </div>
 )
 
