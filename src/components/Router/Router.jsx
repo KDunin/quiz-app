@@ -7,8 +7,8 @@ import Test from '../../views/Test/Test'
 const Router = () => (
   <Switch>
     <Route exact path="/" component={Homepage} />
-    <Route exact path="/training" component={Training} />
-    <Route exact path="/test" component={Test} />
+    <Route path="/training" component={Training} />
+    <Route path="/test" component={Test} />
   </Switch>
 )
 
