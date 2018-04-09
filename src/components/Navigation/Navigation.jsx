@@ -13,6 +13,7 @@ const Navigation = () => (
       <Link className={Style.item} to='/'>HOME</Link>
       <Link className={Style.item} to='/training'>TRENING</Link>
       <Link className={Style.item} to='/test'>TEST</Link>
+      <Link className={Style.item} to='/admin'>ADMIN PANEL</Link>
     </div>
   </div>
 )

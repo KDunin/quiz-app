@@ -1,24 +1,17 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { mapDispatchToProps } from './storeHelper'
+import React from 'react'
 
 const Style = {
   homepage: 'homepage',
   title:    'homepage__title',
 }
 
-class Homepage extends Component {
+const Homepage = () => (
+  <div className={Style.homepage}>
+    <span className={Style.title}>
+      Super quiz
+    </span>
+  </div>
+)
 
-  render() {
-    return (
-      <div className={Style.homepage}>
-        <span className={Style.title}>
-          Super quiz
-        </span>
-      </div>
-    )
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Homepage)
+export default Homepage
 

@@ -1,12 +1,9 @@
 @import './reset';
+@import './variables/variables';
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-$primary-color: #182825;
-$secondary-color: #FDFCFD;
-$third-color: #7F7979;
-$fourth-color: #C1BDB3;
-$text-color: #5F5B6B;
-
+@import './views/AdminPanel/adminPanel';
 @import './views/App/app';
 @import './views/Homepage/homepage';
 @import './views/Test/test';
@@ -17,3 +14,6 @@ $text-color: #5F5B6B;
 @import './components/Rules/rules';
 @import './components/Timer/timer';
 @import './components/QuestionBox/questionBox';
+@import './components/QuestionDataRow/questionDataRow';
+@import './components/QuestionForm/questionForm';
+@import './components/UniversalTable/universalTable';
