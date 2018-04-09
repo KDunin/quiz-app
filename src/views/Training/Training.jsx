@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { mapStoreToProps } from './storeHelper'
 import QuestionBox from '../../components/QuestionBox/QuestionBox'
+import { isEmpty } from '../../utils/arrayUtils'
 
 const Style = {
   training: 'training',
@@ -12,13 +13,19 @@ class Trening extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      itemToRender: { answers: [] },
+      question: '',
+      correct:  '',
+      answers:  [],
     }
     this.handleAnswer = this.handleAnswer.bind(this)
   }
 
-  componentWillMount() {
-    this.setState(setItemsToRender(this.props.questions, this.state.itemToRender))
+  componentDidMount() {
+    const { questions } = this.props
+    if (isEmpty(questions)) {
+      return
+    }
+    this.setState(setItemsToRender(questions, this.state.question))
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,11 +37,13 @@ class Trening extends PureComponent {
   }
 
   render() {
-    const { itemToRender } = this.state
+    const { question, answers, correct } = this.state
     return (
       <div className={Style.training}>
         <QuestionBox 
-          itemToRender={itemToRender}
+          question={question}
+          answers={answers}
+          correct={correct}
           onAnswer={this.handleAnswer}
         />
       </div>
@@ -49,10 +58,12 @@ Trening.propTypes = {
   questions: PropTypes.array,
 }
 
-const setItemsToRender = (questions, renderedItem) => {
+const setItemsToRender = (questions, question) => {
   const rndNumber = Math.floor(Math.random() * (questions.length - 1))
-  const itemToRender = questions.filter(item => item !== renderedItem)[rndNumber]
+  const itemToRender = questions.filter(item => item.question !== question)[rndNumber]
   return {
-    itemToRender,
+    question: itemToRender.question,
+    answers:  itemToRender.answers,
+    correct:  itemToRender.correct,
   }
 }
