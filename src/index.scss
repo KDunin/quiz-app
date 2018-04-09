@@ -9,10 +9,11 @@ $text-color: #5F5B6B;
 
 @import './views/App/app';
 @import './views/Homepage/homepage';
-@import './views/Training/training';
 @import './views/Test/test';
+@import './views/Training/training';
 
 @import './components/Button/button';
 @import './components/Navigation/navigation';
-@import './components/QuestionBox/questionBox';
+@import './components/Rules/rules';
 @import './components/Timer/timer';
+@import './components/QuestionBox/questionBox';

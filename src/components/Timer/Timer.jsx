@@ -68,7 +68,7 @@ Timer.propTypes = {
   /** */
   time:         PropTypes.number,
   /** */
-  loading:      PropTypes.func,
+  loading:      PropTypes.bool,
   /** */
   onTimerReset: PropTypes.func,
 }
