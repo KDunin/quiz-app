@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { mapStoreToProps } from './storeHelper'
 import QuestionBox from '../../components/QuestionBox/QuestionBox'
-import { isEmpty } from '../../utils/arrayUtils'
+import Rules from '../../components/Rules/Rules'
+
+export const TRAINING = 'training'
+const RULES = 'W trybie treningowy, czas na odpowiedz jest nieograniczony, przy wybraniu bledniej odpowiedzi, zostanie podswietlona rowniez poprawna odpowiedz.'
 
 const Style = {
   training: 'training',
@@ -16,35 +19,37 @@ class Trening extends PureComponent {
       question: '',
       correct:  '',
       answers:  [],
+      started:  false,
     }
     this.handleAnswer = this.handleAnswer.bind(this)
-  }
-
-  componentDidMount() {
-    const { questions } = this.props
-    if (isEmpty(questions)) {
-      return
-    }
-    this.setState(setItemsToRender(questions, this.state.question))
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState(setItemsToRender(nextProps.questions, this.state.itemToRender))
+    this.handleStart = this.handleStart.bind(this)
   }
 
   handleAnswer() {
     this.setState(setItemsToRender(this.props.questions, this.state.itemToRender))
   }
 
+  handleStart() {
+    const { questions } = this.props
+    this.setState(Object.assign({ started: true }, setItemsToRender(questions, this.state.question)))
+  }
+
   render() {
-    const { question, answers, correct } = this.state
+    const { question, answers, correct, started } = this.state
     return (
       <div className={Style.training}>
-        <QuestionBox 
+        <Rules
+          started={started}
+          rules={RULES}
+          onClick={this.handleStart}
+        />
+        <QuestionBox
+          started={started} 
           question={question}
           answers={answers}
           correct={correct}
           onAnswer={this.handleAnswer}
+          mode={TRAINING}
         />
       </div>
     )
