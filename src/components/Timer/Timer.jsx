@@ -2,11 +2,15 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { mapStoreToProps, mapDispatchToProps } from './storeHelper'
+import { conditionClass } from '../../utils/classUtils'
 
 const Style = {
-  timer: 'timer',
-  bar:   'timer__bar',
+  timer:  'timer',
+  bar:    'timer__bar',
+  hidden: 'timer__hidden',
 }
+
+const TIME = 10000
 
 class Timer extends PureComponent {
   constructor() {
@@ -19,6 +23,7 @@ class Timer extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
+    clearInterval(this.interval)
     if (!nextProps.loading) {
       return
     }
@@ -33,13 +38,13 @@ class Timer extends PureComponent {
   }
 
   runTimer() {
-    const { time, onTimerReset } = this.props
+    const { onTimerStop } = this.props
     let width = width || 0
-    const increment = 100 / (time / 20)
+    const increment = 100 / (TIME / 20)
     this.interval = setInterval(() => {
       if (width >= 100-increment) {
         clearInterval(this.interval)
-        onTimerReset()
+        onTimerStop()
         this.setState({ loading: false })
       }
       width += increment
@@ -49,15 +54,10 @@ class Timer extends PureComponent {
 
   render() {
     const { width, loading } = this.state
-    if (loading) {
-      return (
-        <div className={Style.timer}>
-          <div style={{ width: `${width}%` }} className={Style.bar}></div>
-        </div>
-      )
-    }
     return (
-      <div></div>
+      <div className={conditionClass(loading, Style.timer, Style.hidden)}>
+        <div style={{ width: `${width}%` }} className={Style.bar}></div>
+      </div>
     )
   }
 }
@@ -66,9 +66,9 @@ export default connect(mapStoreToProps, mapDispatchToProps)(Timer)
 
 Timer.propTypes = {
   /** */
-  time:         PropTypes.number,
+  time:        PropTypes.number,
   /** */
-  loading:      PropTypes.bool,
+  loading:     PropTypes.bool,
   /** */
-  onTimerReset: PropTypes.func,
+  onTimerStop: PropTypes.func,
 }

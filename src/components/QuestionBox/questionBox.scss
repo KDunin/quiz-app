@@ -8,8 +8,15 @@
     display: none;
   }
   
-  &__question {
+  &__text {
     font-size: 30px;
+    margin-bottom: 16px;
+  }
+
+  &__expired {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   &__answers {
