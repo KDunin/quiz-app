@@ -1,7 +1,6 @@
 import React from 'react'
 import Router from '../../components/Router/Router'
 import Navigation from '../../components/Navigation/Navigation'
-import Timer from '../../components/Timer/Timer'
 
 const Style = {
   app: 'app',
@@ -10,7 +9,6 @@ const Style = {
 const App = () => (
   <div className={Style.app}>
     <Navigation />
-    <Timer />
     <Router />
   </div>
 )

@@ -1,0 +1,13 @@
+.score-counter {
+  display: flex;
+  justify-content: flex-end;
+  margin: 16px 16px 0;
+
+  font-size: 30px;
+  padding: 16px;
+  box-shadow: $box-shadow;
+
+  &__hidden {
+    display: none;
+  }
+}
