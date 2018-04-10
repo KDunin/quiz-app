@@ -6,6 +6,6 @@ Front-end:
 1) React
 2) Redux
 
-Backend:
+Back-end:
 1) Express
 2) Mongodb
