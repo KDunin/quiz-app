@@ -1,9 +1,11 @@
-import { startTimer } from '../../store/actions/timer'
+import { runTimer, stopTimer } from '../../store/actions/timer'
 
-export const mapStoreToProps = ({ questions }) => ({
+export const mapStoreToProps = ({ questions, timer }) => ({
   questions,
+  timer: timer.loading,
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  onTimerStart: (time) => dispatch(startTimer(time)),
+  onTimerStart: () => dispatch(runTimer),
+  onTimerStop:  () => dispatch(stopTimer),
 })

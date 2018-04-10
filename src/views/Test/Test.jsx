@@ -9,7 +9,8 @@ export const TEST = 'test'
 const RULES = 'W trybie testowym, musisz odpowiedziec na 10 losowych pytan, za kazda poprawna odpowiedz otrzymujesz punkt, czas na odpowiedz jest ograniczony.'
 
 const Style = {
-  test: 'test',
+  test:   'test',
+  hidden: 'test__hidden',
 }
 
 class Test extends PureComponent {
@@ -23,21 +24,27 @@ class Test extends PureComponent {
     }
     this.handleAnswer = this.handleAnswer.bind(this)
     this.handleStart = this.handleStart.bind(this)
+    this.handleTimeExpire = this.handleTimeExpire.bind(this)
   }
 
   handleAnswer() {
     const { questions, onTimerStart } = this.props
-    this.setState(setItemsToRender(questions, this.state.question), onTimerStart(10000))
+    this.setState(setItemsToRender(questions, this.state.question), onTimerStart)
   }
 
   handleStart() {
     const { questions, onTimerStart } = this.props
-    this.setState(Object.assign({ started: true }, setItemsToRender(questions, this.state.question)), onTimerStart(10000))
+    this.setState(Object.assign({ started: true }, setItemsToRender(questions, this.state.question)), onTimerStart)
   }
 
+  handleTimeExpire() {
+    const { questions, onTimerStart } = this.props
+    this.setState(setItemsToRender(questions, this.state.question), onTimerStart)
+  }
   render() {
     const { question, answers, correct, started } = this.state
-
+    const { timer, onTimerStop } = this.props
+    
     return (
       <div className={Style.test}>
         <Rules
@@ -52,6 +59,9 @@ class Test extends PureComponent {
           correct={correct}
           onAnswer={this.handleAnswer}
           mode={TEST}
+          timer={timer}
+          onTimeExpire={this.handleTimeExpire}
+          onTimerStop={onTimerStop}
         />
       </div>
     )
@@ -68,7 +78,11 @@ Test.propTypes = {
   /** */
   questions:    PropTypes.array,
   /** */
+  timer:        PropTypes.bool,
+  /** */
   onTimerStart: PropTypes.func,
+  /** */
+  onTimerStop:  PropTypes.func,
 }
 
 

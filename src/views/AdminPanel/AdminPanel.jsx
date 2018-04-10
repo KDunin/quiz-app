@@ -62,8 +62,9 @@ AdminPanel.propTypes = {
   questions: PropTypes.array,
 }
 
-const renderQuestionDataRow = (props) => (
+const renderQuestionDataRow = (props, index) => (
   <QuestionDataRow
+    key={index}
     {...props}
   />
 )

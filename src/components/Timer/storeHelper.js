@@ -1,10 +1,9 @@
-import { resetTimer } from '../../store/actions/timer'
+import { stopTimer } from '../../store/actions/timer'
 
 export const mapStoreToProps = ({ timer }) => ({
-  time:    timer.time,
   loading: timer.loading,
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  onTimerReset: () => dispatch(resetTimer),
+  onTimerStop: () => dispatch(stopTimer),
 })

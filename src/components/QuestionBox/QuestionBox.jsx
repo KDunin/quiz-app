@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Button from '../Button/Button'
 import { joinClasses, conditionClass } from '../../utils/classUtils'
 import { shuffleArray } from '../../utils/arrayUtils'
 
 const Style = {
-  box:      'question-box',
-  hidden:   'question-box__hidden',
-  question: 'question-box__question',
-  answers:  'question-box__answers',
-  answer:   'question-box__answers__answer',
-  correct:  'question-box__answers__correct',
-  wrong:    'question-box__answers__wrong',
+  box:     'question-box',
+  hidden:  'question-box__hidden',
+  text:    'question-box__text',
+  expired: 'question-box__expired',
+  answers: 'question-box__answers',
+  answer:  'question-box__answers__answer',
+  correct: 'question-box__answers__correct',
+  wrong:   'question-box__answers__wrong',
 }
 
 class QuestionBox extends Component {
@@ -26,15 +28,16 @@ class QuestionBox extends Component {
     this.handleAnswer = this.handleAnswer.bind(this)
   }
 
-  shouldComponentUpdate({ question }, { answer }) {
-    return answer !== this.state.answer || question !== this.props.question
+  shouldComponentUpdate({ question, timer }, { answer }) {
+    return answer !== this.state.answer || question !== this.props.question || timer !== this.props.timer
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.question === this.props.question) {
+    const { question, answers, correct } = nextProps
+    if (question === this.props.question) {
       return
     }
-    const { question, answers, correct } = nextProps
+    
     const shuffledAnswers = shuffleArray(answers)
     this.setState({
       answer:  '',
@@ -48,9 +51,10 @@ class QuestionBox extends Component {
     if (this.state.answer) {
       return
     }
-    const { onAnswer } = this.props
+    const { onAnswer, onTimerStop } = this.props
     const answer = currentTarget.textContent
     this.setState({ answer })
+    onTimerStop()
     setTimeout(onAnswer, 2000)
   }
 
@@ -69,10 +73,23 @@ class QuestionBox extends Component {
   }
 
   render() {
-    const { question, started } = this.props
+    const { question, started, timer, onTimeExpire } = this.props
+    const { answer } = this.state
+
+    if (!timer && started && !answer) {
+      return (
+        <div className={joinClasses(Style.box, Style.expired)}>
+          <div className={Style.text}>Czas upłynął</div>
+          <Button
+            text='Następne pytanie'
+            onClick={onTimeExpire}
+          />
+        </div>
+      )
+    }
     return (
       <div className={conditionClass(started, Style.box, Style.hidden)}>
-        <span className={Style.question}>{question}</span>
+        <span className={Style.text}>{question}</span>
         <div className={Style.answers}>
           {this.renderAnswers()}
         </div>
@@ -90,19 +107,25 @@ QuestionBox.defaultProps = {
 
 QuestionBox.propTypes = {
   /** */
-  question:  PropTypes.string,
+  question:     PropTypes.string,
   /** */
-  answers:   PropTypes.array,
+  answers:      PropTypes.array,
   /** */
-  correct:   PropTypes.string,
+  correct:      PropTypes.string,
   /** */
-  onAnswer:  PropTypes.func,
+  onAnswer:     PropTypes.func,
   /** */
-  className: PropTypes.string,
+  className:    PropTypes.string,
   /** */
-  mode:      PropTypes.string,
+  mode:         PropTypes.string,
   /** */
-  started:   PropTypes.bool,
+  started:      PropTypes.bool,
+  /** */
+  timer:        PropTypes.bool,
+  /** */
+  onTimeExpire: PropTypes.func,
+  /** */
+  onTimerStop:  PropTypes.func,
 }
 
 const switchConditionClass = (mode) => {

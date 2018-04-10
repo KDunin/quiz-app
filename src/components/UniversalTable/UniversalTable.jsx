@@ -16,11 +16,13 @@ class UniversalTable extends PureComponent {
 
   renderHeaders(headers) {
     return (
-      <tr>
-        {headers.map(header => (
-          <th key={header} className={Style.header}>{header}</th>
-        ))}
-      </tr>
+      <thead>
+        <tr>
+          {headers.map(header => (
+            <th key={header} className={Style.header}>{header}</th>
+          ))}
+        </tr>
+      </thead>
     )
   }
 
@@ -31,7 +33,9 @@ class UniversalTable extends PureComponent {
       <div className={Style.wrapper}>
         <table className={Style.table}>
           {this.renderHeaders(headers)}
-          {data.map(renderRow)}
+          <tbody>
+            {data.map(renderRow)}
+          </tbody>
         </table>
       </div>
     )
