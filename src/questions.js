@@ -1,4 +1,4 @@
-[{
+export const QUESTIONS = [{
   "question": "Które z poniższych urządzeń pracuje jako urządzenie analogowe?",
   "answers":  [
     "Switch",
@@ -6,7 +6,7 @@
     "Router",
     "Bridge"
   ],
-  "correct": "Hub"
+  "correct": "Hub",
 },{
   "question": "Wybierz właściwą kolejność operacji przygotowania dysku twardego do pracy z określonym systemem operacyjnym:",
   "answers":  [
@@ -15,7 +15,7 @@
     "Make partitions, format, mount",
     "Mount, format, make partitions"
   ],
-  "correct": "Make partitions, format, mount"
+  "correct": "Make partitions, format, mount",
 },{
   "question": "Niskopoziomowe formatowanie dysku IDE HDD:",
   "answers":  [
@@ -24,7 +24,7 @@
     "Jest wykonywane przez producenta dysku",
     "Tworzy partycje podstawową"
   ],
-  "correct": "Jest wykonywane przez producenta dysku"
+  "correct": "Jest wykonywane przez producenta dysku",
 },{
   "question": "Terminal to:",
   "answers":  [
@@ -33,7 +33,7 @@
     "Każdy komputer podłączony do Internetu lub innej sieci używającej protokołu TCP/IP i posiadający unikalny adres IP",
     "Jest stacją sieci komputerowej, służącą do wprowadzania lub odczytywania danych"
   ],
-  "correct": "Jest stacją sieci komputerowej, służącą do wprowadzania lub odczytywania danych"
+  "correct": "Jest stacją sieci komputerowej, służącą do wprowadzania lub odczytywania danych",
 },{
   "question": "Który z poniższych napisów nie jest nazwą system operacyjnego??",
   "answers":  [
@@ -42,7 +42,7 @@
     "MS DOS",
     "Windows NT"
   ],
-  "correct": "Slackware"
+  "correct": "Slackware",
 },{
   "question": "W której warstwie modelu ISO/OSI działa most?",
   "answers":  [
@@ -51,7 +51,7 @@
     "Łącza danych",
     "Sieciowej"
   ],
-  "correct": "Łącza danych"
+  "correct": "Łącza danych",
 },{
   "question": "UID oznacza:",
   "answers":  [
@@ -60,7 +60,7 @@
     "Uniform Integrated Domain - wspólna, zintegrowana domena",
     "User Identifier - Identyfikator użytkownika"
   ],
-  "correct": "User Identifier - Identyfikator użytkownika"
+  "correct": "User Identifier - Identyfikator użytkownika",
 },{
   "question": "Serwer to:",
   "answers":  [
@@ -69,7 +69,7 @@
     "Urządzenie łączące segmenty sieci komputerowej pracujące w drugiej warstwie modelu ISO/OSI",
     "Jest stacją sieci komputerowej, służącą do wprowadzania lub odczytywania danych"
   ],
-  "correct": "Proces świadczący usługi na rzecz innych procesów, zazwyczaj uruchomionych na innych komputerach w sieci"
+  "correct": "Proces świadczący usługi na rzecz innych procesów, zazwyczaj uruchomionych na innych komputerach w sieci",
 },{
   "question": "Modułem systemu operacyjnego, który odpowiada za umieszczenie w pamieci operacyjnej program binarnego gotowego do wykonania jest:",
   "answers":  [
@@ -78,7 +78,7 @@
     "Loader",
     "Linker"
   ],
-  "correct": "Loader"
+  "correct": "Loader",
 },{
   "question": "Który z poniższych elementów jest ładowany do pamięci operacyjnej podczas startu komputera?",
   "answers":  [
@@ -87,7 +87,7 @@
     "Funkcje wewnętrzne",
     "Funkcje zewnętrzne"
   ],
-  "correct": "Funkcje wewnętrzne"
+  "correct": "Funkcje wewnętrzne",
 },{
   "question": "W systemie Linux po wpisaniu polecenia : cat file1 > file2",
   "answers":  [
@@ -96,7 +96,7 @@
     "Jeśli file2 nie istnieje, to zostanie zgłoszony błąd",
     "Zostanie porównana zawartość plików file1 oraz file2"
   ],
-  "correct": "Zawartość pliku file1 zostanie skopiowana do pliku file2"
+  "correct": "Zawartość pliku file1 zostanie skopiowana do pliku file2",
 },{
   "question": "Druga partycja pierwszego dysku twardego IDE w systemie Linux będzie adresowana jako:",
   "answers":  [
@@ -105,6 +105,6 @@
     "/dev/hda1",
     "/dev/hda2"
   ],
-  "correct": "/dev/hda2"
+  "correct": "/dev/hda2",
 }
 ]

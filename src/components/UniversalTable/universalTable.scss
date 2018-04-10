@@ -1,0 +1,27 @@
+.universal-table {
+  max-height: calc(100vh - 107px);
+  width: 100%;
+  margin: 16px 0 0 16px;
+  
+  overflow-y: scroll;
+  box-shadow: $box-shadow;
+
+  font-size: 13px;
+  line-height: 2rem;
+  
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  &__header {
+    font-size: 18px;
+    padding: 16px 16px 16px 0;
+    font-weight: inherit;
+  }
+
+  td {
+    padding: 10px;
+    border-top: $gray-border;
+  }
+}

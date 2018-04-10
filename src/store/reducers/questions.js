@@ -1,6 +1,7 @@
 import { UPDATE_QUESTIONS_LIST, ADD_NEW_QUESTION } from '../actions/questions'
+import { QUESTIONS } from '../../questions.js'
 
-export const initialState = []
+export const initialState = QUESTIONS
 
 const questionsReducer = (state = initialState, { type, payload }) => { 
   switch (type) {
