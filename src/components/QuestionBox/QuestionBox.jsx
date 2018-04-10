@@ -4,6 +4,8 @@ import Button from '../Button/Button'
 import { joinClasses, conditionClass } from '../../utils/classUtils'
 import { shuffleArray } from '../../utils/arrayUtils'
 
+const DELAY = 1500
+
 const Style = {
   box:     'question-box',
   hidden:  'question-box__hidden',
@@ -51,11 +53,13 @@ class QuestionBox extends Component {
     if (this.state.answer) {
       return
     }
-    const { onAnswer, onTimerStop } = this.props
+    const { onAnswer, onTimerStop, mode } = this.props
     const answer = currentTarget.textContent
     this.setState({ answer })
-    onTimerStop()
-    setTimeout(onAnswer, 2000)
+    if (mode === 'test') {
+      onTimerStop()
+    }
+    setTimeout(onAnswer.bind(null, answer === this.state.correct), DELAY)
   }
 
   renderAnswers() {
@@ -101,8 +105,12 @@ class QuestionBox extends Component {
 export default QuestionBox
 
 QuestionBox.defaultProps = {
+  /** */
   question: '',
+  /** */
   answers:  [],
+  /** */
+  timer:    true,
 }
 
 QuestionBox.propTypes = {

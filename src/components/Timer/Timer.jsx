@@ -25,10 +25,10 @@ class Timer extends PureComponent {
   componentWillReceiveProps(nextProps) {
     clearInterval(this.interval)
     if (!nextProps.loading) {
+      this.setState({ loading: false })
       return
     }
-    this.runTimer()
-    this.setState({ loading: nextProps.loading, width: 0 })
+    this.setState({ loading: true, width: 0 }, this.runTimer)
   }
 
   componentWillUnmount() {
@@ -54,6 +54,7 @@ class Timer extends PureComponent {
 
   render() {
     const { width, loading } = this.state
+
     return (
       <div className={conditionClass(loading, Style.timer, Style.hidden)}>
         <div style={{ width: `${width}%` }} className={Style.bar}></div>
