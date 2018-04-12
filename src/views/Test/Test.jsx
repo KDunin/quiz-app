@@ -8,14 +8,16 @@ import Rules from '../../components/Rules/Rules'
 import ScoreCounter from '../../components/ScoreCounter/ScoreCounter'
 import { randomNumber } from '../../utils/numberUtils'
 import { isEmpty } from '../../utils/arrayUtils'
+import { conditionClass } from '../../utils/classUtils'
 
 const QUESTIONS_NUMBER = 10
 export const TEST      = 'test'
 const RULES            = 'W trybie testowym, musisz odpowiedziec na 10 losowych pytan, za kazda poprawna odpowiedz otrzymujesz punkt, czas na odpowiedz jest ograniczony.'
 
 const Style = {
-  test:   'test',
-  hidden: 'test__hidden',
+  test:      'test',
+  animation: 'animation-fade-in',
+  hidden:    'test__hidden',
 }
 
 class Test extends PureComponent {
@@ -86,23 +88,25 @@ class Test extends PureComponent {
           rules={RULES}
           onClick={this.handleStart}
         />
-        <ScoreCounter
-          started={started}
-          counter={counter}
-          max={QUESTIONS_NUMBER}
-        />
-        <QuestionBox
-          started={started} 
-          question={question}
-          answers={answers}
-          correct={correct}
-          onAnswer={this.handleAnswer}
-          mode={TEST}
-          timer={timer}
-          onTimeExpire={this.handleTimeExpire}
-          onTimerStop={onTimerStop}
-        />
-        <Timer />        
+        <div className={conditionClass(started, Style.animation, Style.hidden)}>
+          <ScoreCounter
+            started={started}
+            counter={counter}
+            max={QUESTIONS_NUMBER}
+          />
+          <QuestionBox
+            started={started}
+            question={question}
+            answers={answers}
+            correct={correct}
+            onAnswer={this.handleAnswer}
+            mode={TEST}
+            timer={timer}
+            onTimeExpire={this.handleTimeExpire}
+            onTimerStop={onTimerStop}
+          />
+          <Timer />
+        </div>
       </div>
     )
   }

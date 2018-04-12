@@ -6,12 +6,14 @@ import Rules from '../../components/Rules/Rules'
 import QuestionBox from '../../components/QuestionBox/QuestionBox'
 import ScoreCounter from '../../components/ScoreCounter/ScoreCounter'
 import { randomNumber } from '../../utils/numberUtils'
+import { conditionClass } from '../../utils/classUtils'
 
 export const TRAINING = 'training'
 const RULES = 'W trybie treningowy, czas na odpowiedz jest nieograniczony, przy wybraniu bledniej odpowiedzi, zostanie podswietlona rowniez poprawna odpowiedz.'
 
 const Style = {
-  training: 'training',
+  training:  'training',
+  animation: 'animation-fade-in',
 }
 
 class Trening extends PureComponent {
@@ -54,19 +56,21 @@ class Trening extends PureComponent {
           rules={RULES}
           onClick={this.handleStart}
         />
-        <ScoreCounter
-          started={started}
-          score={score}
-          counter={counter}
-        />
-        <QuestionBox
-          started={started} 
-          question={question}
-          answers={answers}
-          correct={correct}
-          onAnswer={this.handleAnswer}
-          mode={TRAINING}
-        />
+        <div className={conditionClass(started, Style.animation, Style.hidden)}>
+          <ScoreCounter
+            started={started}
+            score={score}
+            counter={counter}
+          />
+          <QuestionBox
+            started={started} 
+            question={question}
+            answers={answers}
+            correct={correct}
+            onAnswer={this.handleAnswer}
+            mode={TRAINING}
+          />
+        </div>
       </div>
     )
   }
