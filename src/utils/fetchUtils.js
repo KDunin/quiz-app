@@ -1,4 +1,4 @@
-export const SERVER_ADDRESS = 'https://quiz-app-duninwasowiczk332687.codeanyapp.com/'
+export const SERVER_ADDRESS = 'https://quiz-app-backend.herokuapp.com/'
 
 export const METHOD_GET     = 'GET'
 export const METHOD_POST    = 'POST'
