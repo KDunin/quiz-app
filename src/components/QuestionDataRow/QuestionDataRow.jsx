@@ -6,8 +6,8 @@ const Style = {
   answer: 'question-data-row__answer',
 }
 
-const QuestionDataRow = ({ question, answers, correct }) => (
-  <tr>
+const QuestionDataRow = ({ id, question, answers, correct, onEdit }) => (
+  <tr key={id}>
     <td>{question}</td>
     <td>
       <span className={Style.answer}>{`A: ${answers[0]}`}</span>
@@ -18,7 +18,9 @@ const QuestionDataRow = ({ question, answers, correct }) => (
     <td>{switchCorrectAnswer(answers, correct)}</td>
     <td>
       <Button
+        id={id}
         text='edit'
+        onClick={onEdit}
         icon
       />
     </td>
@@ -29,11 +31,15 @@ export default QuestionDataRow
 
 QuestionDataRow.propTypes = {
   /** */
+  id:       PropTypes.string,
+  /** */
   question: PropTypes.string,
   /** */
   answers:  PropTypes.array,
   /** */
   correct:  PropTypes.string,
+  /** */
+  onEdit:   PropTypes.func,
 }
 
 const switchCorrectAnswer = (answers, correct) => {

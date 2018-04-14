@@ -1,11 +1,12 @@
-export const SERVER_ADDRESS = 'https://quiz-app-backend.herokuapp.com/'
+const SERVER_ADDRESS = 'https://quiz-app-backend.herokuapp.com/'
 
-export const METHOD_GET     = 'GET'
-export const METHOD_POST    = 'POST'
+const METHOD_GET   = 'GET'
+const METHOD_POST  = 'POST'
+const METHOD_PATCH = 'PATCH'
 
-export const MODE_CORS = 'cors'
+const MODE_CORS = 'cors'
 
-export const CONTENT_TYPE_JSON = 'application/json'
+const CONTENT_TYPE_JSON = 'application/json'
 
 export const fetchGet = (url) => fetch(getFullUrl(url), {
   method:  METHOD_GET,
@@ -13,7 +14,7 @@ export const fetchGet = (url) => fetch(getFullUrl(url), {
   headers: {
     'Content-Type': CONTENT_TYPE_JSON,
   },
-})
+}).then((response) => response.json())
 
 export const fetchPost = (url, data) => fetch(getFullUrl(url), {
   method:  METHOD_POST,
@@ -21,7 +22,15 @@ export const fetchPost = (url, data) => fetch(getFullUrl(url), {
   headers: {
     'Content-Type': CONTENT_TYPE_JSON,
   },
-})
+}).then((response) => response.json())
+
+export const fetchPatch = (url, data) => fetch(getFullUrl(url), {
+  method:  METHOD_PATCH,
+  body:    JSON.stringify(data),
+  headers: {
+    'Content-Type': CONTENT_TYPE_JSON,
+  },
+}).then((response) => response.json())
 
 const getFullUrl = (url) => {
   return SERVER_ADDRESS + url
