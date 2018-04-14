@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { mapDispatchToProps } from './storeHelper'
+import { mapStoreToProps, mapDispatchToProps } from './storeHelper'
 import Button from '../Button/Button'
 import { conditionClass } from '../../utils/classUtils'
 
@@ -16,24 +16,35 @@ class QuestionForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      question: 'Które z poniższych urządzeń pracuje jako urządzenie analogowe?',
-      a:        'Switch',
-      b:        'Hub',
-      c:        'Router',
-      d:        'Bridge',
-      correct:  'Hub',
-      
+      question: '',
+      a:        '',
+      b:        '',
+      c:        '',
+      d:        '',
+      correct:  '',
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
+  static getDerivedStateFromProps(nextProps) {
+    return {
+      question: nextProps.question,
+      a:        nextProps.a,
+      b:        nextProps.b,
+      c:        nextProps.c,
+      d:        nextProps.d,
+      correct:  nextProps.correct,
+    }
+  }
+
   handleSubmit(event) {
     event.preventDefault()
     const { question, a, b, c, d, correct } = this.state
-
-    this.props.createQuestion({
+    const { onSubmit, id } = this.props
+    onSubmit({
       answers: [a, b, c, d],
+      id,
       question,
       correct,
     })
@@ -45,8 +56,8 @@ class QuestionForm extends Component {
 
   render() {
     const { question, a, b, c, d, correct } = this.state 
-    const { visible, onSubmit } = this.props
-
+    const { visible, id } = this.props
+    
     return (
       <form className={conditionClass(visible, Style.form, Style.hidden)} onSubmit={this.handleSubmit}>
         <span className={Style.label}>Pytanie</span>
@@ -108,21 +119,20 @@ class QuestionForm extends Component {
         </select>
         <Button
           className={Style.button}
-          onClick={onSubmit}
-          text='Dodaj pytanie'
+          text={id ? 'Edytuj pytanie' : 'Dodaj pytanie'}
         />
       </form>
     )
   }
 }
 
-export default connect(null, mapDispatchToProps)(QuestionForm)
+export default connect(mapStoreToProps, mapDispatchToProps)(QuestionForm)
 
 QuestionForm.propTypes = {
   /** */
-  createQuestion: PropTypes.func,
+  id:       PropTypes.string,
   /** */
-  visible:        PropTypes.bool,
+  visible:  PropTypes.bool,
   /** */
-  onSubmit:       PropTypes.func,
+  onSubmit: PropTypes.func,
 }
