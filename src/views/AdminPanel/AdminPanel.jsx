@@ -13,13 +13,13 @@ const Style = {
   wrapper: 'admin-panel',
 }
 
-const AdminPanel = ({ questions, onQuestionAdd, onQuestionEdit, form, onFormHide }) => (
+const AdminPanel = ({ questions, onQuestionAdd, onQuestionEdit, onQuestionDelete, form, onFormHide }) => (
   <div className={Style.wrapper}>
     <QuestionForm />
     <UniversalTable
       data={questions}
       headers={TABLE_HEADERS}
-      renderRow={renderQuestionDataRow(onQuestionEdit)}
+      renderRow={renderQuestionDataRow(onQuestionEdit, onQuestionDelete)}
     />
     <Button 
       text={form ? "close" : "add"}
@@ -34,21 +34,24 @@ export default connect(mapStoreToProps, mapDispatchToProps)(AdminPanel)
 
 AdminPanel.propTypes = {
   /** */
-  questions:      PropTypes.array,
+  questions:        PropTypes.array,
   /** */
-  form:           PropTypes.bool,
+  form:             PropTypes.bool,
   /** */
-  onQuestionAdd:  PropTypes.func,
+  onQuestionAdd:    PropTypes.func,
   /** */
-  onQuestionEdit: PropTypes.func,
+  onQuestionEdit:   PropTypes.func,
   /** */
-  onFormHide:     PropTypes.func,
+  onQuestionDelete: PropTypes.func,
+  /** */
+  onFormHide:       PropTypes.func,
 }
 
-const renderQuestionDataRow = (onEdit) => (props, index) => (
+const renderQuestionDataRow = (onEdit, onDelete) => (props, index) => (
   <QuestionDataRow
     key={index}
     onEdit={onEdit}
+    onDelete={onDelete}
     {...props}
   />
 )

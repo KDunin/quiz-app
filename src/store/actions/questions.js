@@ -1,10 +1,11 @@
-import { fetchQuestions, postNewQuestionData, postQuestionData } from '../../data/questions'
+import { fetchQuestions, postNewQuestionData, postQuestionData, deleteQuestionData } from '../../data/questions'
 import { parseQuestionServerData } from '../mappers/questions'
 import { findById } from '../../utils/dataUtils'
 import { showForm, hideForm } from './form'
 
 export const UPDATE_QUESTIONS_LIST = 'UPDATE_QUESTIONS_LIST'
 export const ADD_NEW_QUESTION      = 'ADD_NEW_QUESTION'
+export const DELETE_QUESTION       = 'DELETE_QUESTION'
 
 export const getQuestionsList = (dispatch) => {
 
@@ -16,7 +17,7 @@ export const createQuestion = (data) => (dispatch) => {
   dispatch(hideForm())
 
   postNewQuestionData(data)
-    .then((question) => dispatch(addNewQuestion(question)))
+    .then((question) => dispatch(addNewQuestion(parseQuestionServerData(question))))
 }
 
 export const editQuestionForm = (id) => (dispatch, getState) => {
@@ -32,6 +33,12 @@ export const editQuestion = (data) => (dispatch) => {
   postQuestionData(data)
 }
 
+export const deleteQuestion = (id) => (dispatch) => {
+
+  deleteQuestionData(id)
+    .then(() => dispatch(removeQuestion(id)))
+}
+
 const updateQuestionsList = (questions) => ({
   type:    UPDATE_QUESTIONS_LIST,
   payload: {
@@ -43,5 +50,12 @@ const addNewQuestion = (question) => ({
   type:    ADD_NEW_QUESTION,
   payload: {
     question,
+  },
+})
+
+const removeQuestion = (id) => ({
+  type:    DELETE_QUESTION,
+  payload: {
+    id,
   },
 })

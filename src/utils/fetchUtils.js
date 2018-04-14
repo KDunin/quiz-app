@@ -1,8 +1,9 @@
 const SERVER_ADDRESS = 'https://quiz-app-backend.herokuapp.com/'
 
-const METHOD_GET   = 'GET'
-const METHOD_POST  = 'POST'
-const METHOD_PATCH = 'PATCH'
+const METHOD_GET    = 'GET'
+const METHOD_POST   = 'POST'
+const METHOD_PATCH  = 'PATCH'
+const METHOD_DELETE = 'DELETE'
 
 const MODE_CORS = 'cors'
 
@@ -30,6 +31,10 @@ export const fetchPatch = (url, data) => fetch(getFullUrl(url), {
   headers: {
     'Content-Type': CONTENT_TYPE_JSON,
   },
+}).then((response) => response.json())
+
+export const fetchDelete = (url) => fetch(getFullUrl(url), {
+  method: METHOD_DELETE,
 }).then((response) => response.json())
 
 const getFullUrl = (url) => {
