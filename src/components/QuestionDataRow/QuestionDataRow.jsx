@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import Button from '../Button/Button'
 
 const Style = {
-  answer: 'question-data-row__answer',
+  answer:  'question-data-row__answer',
+  actions: 'question-data-row__actions',
 }
 
-const QuestionDataRow = ({ id, question, answers, correct, onEdit }) => (
+const QuestionDataRow = ({ id, question, answers, correct, onEdit, onDelete }) => (
   <tr key={id}>
     <td>{question}</td>
     <td>
@@ -16,11 +17,17 @@ const QuestionDataRow = ({ id, question, answers, correct, onEdit }) => (
       <span className={Style.answer}>{`D: ${answers[3]}`}</span>
     </td>
     <td>{switchCorrectAnswer(answers, correct)}</td>
-    <td>
+    <td className={Style.actions}>
       <Button
         id={id}
         text='edit'
         onClick={onEdit}
+        icon
+      />
+      <Button
+        id={id}
+        text='delete'
+        onClick={onDelete}
         icon
       />
     </td>
@@ -40,6 +47,8 @@ QuestionDataRow.propTypes = {
   correct:  PropTypes.string,
   /** */
   onEdit:   PropTypes.func,
+  /** */
+  onDelete: PropTypes.func,
 }
 
 const switchCorrectAnswer = (answers, correct) => {

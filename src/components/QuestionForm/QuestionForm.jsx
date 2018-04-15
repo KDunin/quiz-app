@@ -21,7 +21,7 @@ class QuestionForm extends Component {
       b:        '',
       c:        '',
       d:        '',
-      correct:  '',
+      correct:  undefined,
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -46,7 +46,7 @@ class QuestionForm extends Component {
       answers: [a, b, c, d],
       id,
       question,
-      correct,
+      correct: correct || a,
     })
   }
 
@@ -111,7 +111,9 @@ class QuestionForm extends Component {
           value={correct}
           onChange={this.handleChange}
           className={Style.textarea}
+          required
         >
+          <option value=''>Wybierz Odpowiedź</option>
           <option value={a}>A</option>
           <option value={b}>B</option>
           <option value={c}>C</option>

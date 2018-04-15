@@ -1,3 +1,10 @@
-.question-data-row__answer {
-  display: block;
+.question-data-row {
+
+  &__answer {
+    display: block;
+  }
+
+  &__actions {
+    min-width: 100px;
+  }
 }
