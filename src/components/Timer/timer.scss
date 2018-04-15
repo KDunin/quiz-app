@@ -31,7 +31,7 @@
   &__counter {
     top: 0;
     position: absolute;
-    margin: 0 50%;
+    left: calc(50% - 10px);
   }
 
   &__hidden {

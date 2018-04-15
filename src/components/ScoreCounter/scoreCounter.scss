@@ -6,7 +6,41 @@
   font-size: 30px;
   padding: 16px;
   box-shadow: $box-shadow;
+  
+  &__ul {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    position: relative;
 
+    &__li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 45px;
+      width: 45px;
+
+      border-radius: 50%;
+      background-color: $third-color;
+      color: white;
+      list-style: none;
+      z-index: 2;
+
+      &__active {
+        background-color: rgb(87, 119, 207);
+        transform: scale(1.25)
+      }
+
+      &__correct {
+        background-color: rgb(89, 190, 5);
+      }
+      
+      &__wrong {
+        background-color:#FF5E5B;
+      }
+    }
+  }
+  
   &__hidden {
     display: none;
   }

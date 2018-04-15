@@ -29,7 +29,7 @@ const switchButtonType = (id, icon, float, className, text, onClick) => {
   if (icon) {
     return (
       <button
-        className={Style.iconButton}
+        className={joinClasses(Style.iconButton, className)}
         onClick={onClick}
         id={id}
       >
@@ -39,7 +39,7 @@ const switchButtonType = (id, icon, float, className, text, onClick) => {
   } else if (float) {
     return (
       <button
-        className={Style.float}
+        className={joinClasses(Style.float, className)}
         onClick={onClick}
         id={id}
       >

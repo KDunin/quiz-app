@@ -1,4 +1,9 @@
 .admin-panel {
   display: flex;
   flex-wrap: nowrap;
+
+  &__add {
+    background-color: $third-color !important;
+    color: white !important;
+  }
 }
