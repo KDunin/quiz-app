@@ -28,7 +28,6 @@ const timeout = { enter: 600, exit: 0 }
 /* eslint-disable react/prop-types */
 const Router = ({ location }) => {
   const currentKey = location.pathname.split('/')[1] || '/'
-  
   return (
     <TransitionGroup>
       <CSSTransition
