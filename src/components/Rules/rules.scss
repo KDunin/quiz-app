@@ -2,10 +2,14 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 16px;
+  margin-bottom: 16px;
   padding: 16px;
 
   box-shadow: $box-shadow;
+
+  opacity: 1;
+  will-change: opacity;
+  transition: opacity 500ms ease-out;
 
   &__text{
     font-size: 25px;
@@ -16,11 +20,8 @@
     max-width: 200px;
   }
 
-  &__button {
-
-  }
-
   &__hidden {
-    display: none;
+    opacity: 0;
+    height: 0;
   }
 }

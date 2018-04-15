@@ -1,14 +1,24 @@
 .question-box {
-  margin: 16px;
+  margin-bottom: 16px;
   padding: 16px;
   
   box-shadow: $box-shadow;
+  opacity: 1;
 
   &__hidden {
-    display: none;
+    opacity: 0;
+    will-change: opacity;
+    transition: opacity 200ms ease-in;
+  }
+  &__visible {
+    will-change: opacity;
+    transition: opacity 200ms ease-out;
+    opacity: 1;
   }
   
   &__text {
+    display: block;
+    min-height: 80px;
     font-size: 30px;
     margin-bottom: 16px;
   }
@@ -31,16 +41,19 @@
     &__answer {
       padding: 16px 16px;
       width: 40%;
-      background-color: $fourth-color;
+      background-color: $third-color;
+      cursor: pointer;
+
       &:hover {
-        background-color: grey;
+        background-color: $fourth-color;
       }
     }
+
     &__correct {
-      background-color: greenyellow;
+      background-color: green !important;
     }
     &__wrong {
-      background-color: red;
+      background-color: #FF5E5B !important;
     }
   }
 }

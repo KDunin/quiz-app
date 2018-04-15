@@ -2,62 +2,72 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { mapStoreToProps, mapDispatchToProps } from './storeHelper'
-import { conditionClass } from '../../utils/classUtils'
 
 const Style = {
-  timer:  'timer',
-  bar:    'timer__bar',
-  hidden: 'timer__hidden',
+  timer:    'timer',
+  bar:      'timer__bar',
+  animate:  'timer__animate',
+  progress: 'timer__bar__progress',
+  counter:  'timer__counter',
+  hidden:   'timer__hidden',
 }
 
-const TIME = 10000
+const TIME             = 10000
+const UPDATE_INTERVAL  = 20
+const UPDATE_INCREMENT = 100 / (TIME / UPDATE_INTERVAL)
+const COUNTER          = TIME/1000
 
 class Timer extends PureComponent {
   constructor() {
     super()
     this.state = {
       width:   0,
-      loading: false,
+      counter: COUNTER,
     }
     this.runTimer = this.runTimer.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
-    clearInterval(this.interval)
+    clearInterval(this.counterInterval)
+    clearInterval(this.timerInterval)
     if (!nextProps.loading) {
-      this.setState({ loading: false })
       return
     }
-    this.setState({ loading: true, width: 0 }, this.runTimer)
+    this.setState({ width: 0, counter: COUNTER }, this.runTimer)
   }
-
   componentWillUnmount() {
-    if (this.interval) {
-      clearInterval(this.interval)
+    if (this.counterInterval && this.timerInterval) {
+      clearInterval(this.counterInterval)
+      clearInterval(this.timerInterval)
     }
   }
-
   runTimer() {
     const { onTimerStop } = this.props
-    let width = width || 0
-    const increment = 100 / (TIME / 20)
-    this.interval = setInterval(() => {
-      if (width >= 100-increment) {
-        clearInterval(this.interval)
+    let width = 0
+    let counter = COUNTER
+    this.timerInterval = setInterval(() => {
+      width = Math.min(100, width)
+      if (width === 100) {
+        clearInterval(this.counterInterval)
+        clearInterval(this.timerInterval)
         onTimerStop()
-        this.setState({ loading: false })
+      } else {
+        width += UPDATE_INCREMENT
+        this.setState({ width })
       }
-      width += increment
-      this.setState({ width })
-    }, 20)
+    }, UPDATE_INTERVAL)
+    this.counterInterval = setInterval(() => {
+      --counter
+      this.setState({ counter })
+    }, 1000)
   }
 
   render() {
-    const { width, loading } = this.state
+    const { width, counter } = this.state
 
     return (
-      <div className={conditionClass(loading, Style.timer, Style.hidden)}>
-        <div style={{ width: `${width}%` }} className={Style.bar}></div>
+      <div className={Style.timer}>
+        <div className={Style.bar}><div style={{ width: `${width}%` }} className={Style.progress}><span className={Style.counter}>{counter + 's'}</span></div></div>
       </div>
     )
   }

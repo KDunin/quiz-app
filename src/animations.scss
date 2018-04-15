@@ -1,0 +1,43 @@
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 600ms ease-out;
+}
+.fade-exit,
+.fade-exit-active {
+  opacity: 0;
+}
+
+.animation-fade-in {
+  animation: fade-in 600ms ease-out;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animation-correct-answer {
+  animation: correct-answer 2s ease-in-out both;
+}
+
+@keyframes correct-answer {
+  0% {
+    background-color: $third-color;
+  }
+  30% {
+    background-color: rgb(89, 190, 5);    
+  }
+  60% {
+    background-color: $third-color;    
+  }
+  100% {
+    background-color: rgb(89, 190, 5);
+  }
+}

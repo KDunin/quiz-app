@@ -4,17 +4,19 @@ import Button from '../Button/Button'
 import { joinClasses, conditionClass } from '../../utils/classUtils'
 import { shuffleArray } from '../../utils/arrayUtils'
 
-const DELAY = 1500
+const DELAY = 3000
 
 const Style = {
-  box:     'question-box',
-  hidden:  'question-box__hidden',
-  text:    'question-box__text',
-  expired: 'question-box__expired',
-  answers: 'question-box__answers',
-  answer:  'question-box__answers__answer',
-  correct: 'question-box__answers__correct',
-  wrong:   'question-box__answers__wrong',
+  box:      'question-box',
+  hidden:   'question-box__hidden',
+  visible:  'question-box__visible',
+  text:     'question-box__text',
+  expired:  'question-box__expired',
+  question: 'question-box__question',
+  answers:  'question-box__answers',
+  answer:   'question-box__answers__answer',
+  correct:  'animation-correct-answer',
+  wrong:    'question-box__answers__wrong',
 }
 
 class QuestionBox extends Component {
@@ -25,13 +27,10 @@ class QuestionBox extends Component {
       answers:  shuffleArray(props.answers),
       answer:   '',
       correct:  props.correct,
+      animate:  false,
     }
     this.renderAnswers = this.renderAnswers.bind(this)
     this.handleAnswer = this.handleAnswer.bind(this)
-  }
-
-  shouldComponentUpdate({ question, timer }, { answer }) {
-    return answer !== this.state.answer || question !== this.props.question || timer !== this.props.timer
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,6 +41,7 @@ class QuestionBox extends Component {
     
     const shuffledAnswers = shuffleArray(answers)
     this.setState({
+      animate: true,
       answer:  '',
       answers: shuffledAnswers,
       correct,
@@ -59,6 +59,9 @@ class QuestionBox extends Component {
     if (mode === 'test') {
       onTimerStop()
     }
+    setTimeout(function() {
+      this.setState({ animate: false })
+    }.bind(this), DELAY-400)
     setTimeout(onAnswer.bind(null, answer === this.state.correct), DELAY)
   }
 
@@ -72,13 +75,13 @@ class QuestionBox extends Component {
         onClick={this.handleAnswer}
       >
         {text}
-      </span>)
-    ) 
+      </span>
+    )) 
   }
 
   render() {
     const { question, started, timer, onTimeExpire } = this.props
-    const { answer } = this.state
+    const { answer, animate } = this.state
 
     if (!timer && started && !answer) {
       return (
@@ -93,9 +96,11 @@ class QuestionBox extends Component {
     }
     return (
       <div className={conditionClass(started, Style.box, Style.hidden)}>
-        <span className={Style.text}>{question}</span>
-        <div className={Style.answers}>
-          {this.renderAnswers()}
+        <div className={conditionClass(animate, Style.visible, Style.hidden)}>
+          <span className={Style.text}>{question}</span>
+          <div className={Style.answers}>
+            {this.renderAnswers()}
+          </div>
         </div>
       </div>
     )

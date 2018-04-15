@@ -1,12 +1,12 @@
 .button {
   padding: 8px 16px;
 
-  border: 0;
-  border-radius: 2px;
-
+  cursor: pointer;
   background: $primary-color;
   color: white;
   font-size: 24px;
+  border: 0;
+  border-radius: 2px;
 
   &__float {
     position: fixed;
