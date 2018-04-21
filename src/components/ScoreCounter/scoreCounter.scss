@@ -2,10 +2,11 @@
   display: flex;
   justify-content: flex-end;
   margin-bottom: 16px;
-
+  
   font-size: 30px;
   padding: 16px;
   box-shadow: $box-shadow;
+  background-color: white;
   
   &__ul {
     display: flex;
@@ -26,16 +27,16 @@
       list-style: none;
       z-index: 2;
 
-      &__active {
+      &--active {
         background-color: rgb(87, 119, 207);
         transform: scale(1.25)
       }
 
-      &__correct {
+      &--correct {
         background-color: rgb(89, 190, 5);
       }
       
-      &__wrong {
+      &--wrong {
         background-color:#FF5E5B;
       }
     }

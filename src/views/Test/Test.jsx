@@ -40,8 +40,17 @@ class Test extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    const { question } = this.state
-    return question !== nextProps.question
+    const { question, questions } = this.state
+    return  questions !== nextProps.questions || question !== nextProps.question
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.questions === this.props.questions) {
+      return
+    }
+    this.setState({
+      questions: nextProps.questions,
+    })
   }
 
   componentWillUnmount() {
@@ -152,6 +161,9 @@ const setItemsToRender = (questions, question) => {
 }
 
 const drawRandomQuestions = (questions) => {
+  if (isEmpty(questions)) {
+    return
+  }
   const randomQuestions = []
   let i = randomQuestions.length
   while (i < QUESTIONS_NUMBER) {

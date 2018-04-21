@@ -1,5 +1,7 @@
-import { postForm } from '../utils/fetchUtils'
+import { fetchPost } from '../utils/fetchUtils'
 
-const SIGNIN_URL = 'api/auth/signin'
+const SIGNIN_URL = 'auth/signin'
+const SIGNUP_URL = 'auth/signup'
 
-export const postUserCredentials = (data) => postForm(SIGNIN_URL, data)
+export const postUserCredentials = (data) => fetchPost(SIGNIN_URL, data)
+export const postNewUserCredentials = (data) => fetchPost(SIGNUP_URL, data)

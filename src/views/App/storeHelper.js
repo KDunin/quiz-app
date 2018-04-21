@@ -1,3 +1,3 @@
 export const mapStoreToProps = ({ appStatus }) => ({
-  loggedIn: appStatus.logged,
+  isLoggedIn: appStatus.loggedIn,
 })

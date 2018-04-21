@@ -8,9 +8,9 @@ const Style = {
   counter: 'score-counter__counter',
   ul:      'score-counter__ul',
   li:      'score-counter__ul__li',
-  active:  'score-counter__ul__li__active',
-  correct: 'score-counter__ul__li__correct',
-  wrong:   'score-counter__ul__li__wrong',
+  active:  'score-counter__ul__li--active',
+  correct: 'score-counter__ul__li--correct',
+  wrong:   'score-counter__ul__li--wrong',
   hidden:  'score-counter__hidden',
 }
 
