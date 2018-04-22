@@ -1,10 +1,11 @@
 .universal-table {
-  max-height: calc(100vh - 107px);
+  max-height: calc(100vh - 97px);
   width: 100%;
   margin: 16px 0 0 16px;
   
   overflow-y: scroll;
   box-shadow: $box-shadow;
+  background-color: white;
 
   font-size: 13px;
   line-height: 2rem;

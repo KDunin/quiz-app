@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { mapStoreToProps, mapDispatchToProps } from './storeHelper'
@@ -16,11 +16,12 @@ const RULES            = 'W trybie testowym, musisz odpowiedziec na 10 losowych 
 
 const Style = {
   test:      'test',
-  animation: 'animation-fade-in',
+  score:     'test__score',
   hidden:    'test__hidden',
+  animation: 'animation-fade-in',
 }
 
-class Test extends PureComponent {
+class Test extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -28,9 +29,9 @@ class Test extends PureComponent {
       question:  '',
       correct:   '',
       answers:   [],
+      score:     [],
+      counter:   0,
       started:   false,
-      score:     0,
-      counter:   1,
       summary:   false,
     }
     this.handleAnswer = this.handleAnswer.bind(this)
@@ -38,23 +39,39 @@ class Test extends PureComponent {
     this.handleTimeExpire = this.handleTimeExpire.bind(this)
   }
 
-  componentDidMount() {
+  shouldComponentUpdate(nextProps) {
+    const { question, questions } = this.state
+    return  questions !== nextProps.questions || question !== nextProps.question
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.questions === this.props.questions) {
+      return
+    }
+    this.setState({
+      questions: nextProps.questions,
+    })
+  }
+
+  componentWillUnmount() {
     this.props.onTimerStop()
   }
 
   handleAnswer(correct) {
-    const { questions, question } = this.state
+    const { questions, question, score } = this.state
     const { onTimerStart } = this.props
     if (isEmpty(questions)) {
-      this.setState({ summary: true })
-      return
+      if (correct) {
+        return this.setState({ summary: true, score: [...score, 1] })
+      }
+      return this.setState({ summary: true, score: [...score, 0] })
     }
     if (correct) {
       this.setState(prevState => 
-        Object.assign({ score: ++prevState.score, counter: ++prevState.counter }, setItemsToRender(questions, question)), onTimerStart)
+        Object.assign({ score: [...score, 1], counter: ++prevState.counter }, setItemsToRender(questions, question)), onTimerStart)
     } else {
       this.setState(prevState => 
-        Object.assign({ counter: ++prevState.counter }, setItemsToRender(questions, question)), onTimerStart)
+        Object.assign({ score: [...score, 0], counter: ++prevState.counter }, setItemsToRender(questions, question)), onTimerStart)
     }
   }
 
@@ -65,10 +82,10 @@ class Test extends PureComponent {
   }
 
   handleTimeExpire() {
-    const { questions, question } = this.state
+    const { questions, question, score } = this.state
     const { onTimerStart } = this.props
     this.setState(prevState => 
-      Object.assign({ counter: ++prevState.counter }, setItemsToRender(questions, question)), onTimerStart)
+      Object.assign({ score: [...score, 0], counter: ++prevState.counter }, setItemsToRender(questions, question)), onTimerStart)
   }
 
   render() {
@@ -76,9 +93,9 @@ class Test extends PureComponent {
     const { timer, onTimerStop } = this.props
     if (summary) {
       return (
-        <div>
-          TWOJ WYNIK TO {score}
-        </div>
+        <span className={Style.score}>
+          TWÓJ WYNIK TO {score.filter(item => item).length}
+        </span>
       )
     }
     return (
@@ -93,6 +110,8 @@ class Test extends PureComponent {
             started={started}
             counter={counter}
             max={QUESTIONS_NUMBER}
+            score={score}
+            mode={TEST}
           />
           <QuestionBox
             started={started}
@@ -142,6 +161,9 @@ const setItemsToRender = (questions, question) => {
 }
 
 const drawRandomQuestions = (questions) => {
+  if (isEmpty(questions)) {
+    return
+  }
   const randomQuestions = []
   let i = randomQuestions.length
   while (i < QUESTIONS_NUMBER) {

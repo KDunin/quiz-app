@@ -2,6 +2,7 @@
   margin-bottom: 16px;
   padding: 16px;
   
+  background-color: white;
   box-shadow: $box-shadow;
   opacity: 1;
 
@@ -38,6 +39,7 @@
     margin-top: 16px;
 
     color: white;
+    
     &__answer {
       padding: 16px 16px;
       width: 40%;

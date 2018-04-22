@@ -1,0 +1,15 @@
+.toast {
+  bottom: 0;
+  left: calc(50% - 150px);
+  height: 65px;
+  min-width: 300px;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  
+  border-radius: 5px 5px 0 0;
+  background-color: rgba(0, 0, 0, 0.815);
+  color: white;
+}

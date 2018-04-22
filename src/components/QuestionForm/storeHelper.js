@@ -30,7 +30,7 @@ export const mapStoreToProps = ({ form }) => {
 }
 
 export const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (data) => dispatch(switchSubmitAction(data)(data)),
+  onSubmit: (data) => dispatch(switchSubmitAction(data.id)(data)),
 })
 
-export const switchSubmitAction = ({ id }) => id ? editQuestion : createQuestion
+export const switchSubmitAction = (id) => id ? editQuestion : createQuestion

@@ -1,8 +1,7 @@
 import { UPDATE_QUESTIONS_LIST, ADD_NEW_QUESTION, DELETE_QUESTION } from '../actions/questions'
-import { QUESTIONS } from '../../questions.js'
 import { filterById } from '../../utils/dataUtils'
 
-export const initialState = QUESTIONS
+export const initialState = []
 
 const questionsReducer = (state = initialState, { type, payload }) => { 
   switch (type) {

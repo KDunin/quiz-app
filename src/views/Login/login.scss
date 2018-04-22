@@ -1,0 +1,31 @@
+.login {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+  }
+
+  &__input {
+    padding: 20px;
+    margin: 0 10px 10px;
+    background: none;
+    border: 1px solid $third-color;
+    font-size: 20px;
+  }
+
+  &__buttons {
+    display: flex;
+    margin: 10px;
+    justify-content: space-between;
+  }
+  &__button {
+    width: 200px;
+    border-radius: 0 !important;
+    padding: 10px !important;
+  }
+}

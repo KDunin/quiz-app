@@ -11,6 +11,7 @@ const TABLE_HEADERS = ['Pytanie', 'Opcje', 'Odpowiedź', 'Akcje']
 
 const Style = {
   wrapper: 'admin-panel',
+  add:     'admin-panel__add',
 }
 
 const AdminPanel = ({ questions, onQuestionAdd, onQuestionEdit, onQuestionDelete, form, onFormHide }) => (

@@ -1,4 +1,13 @@
 .admin-panel {
   display: flex;
   flex-wrap: nowrap;
+
+  &__add {
+    top: initial !important;
+    left: initial !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    background-color: $third-color !important;
+    color: white !important;
+  }
 }

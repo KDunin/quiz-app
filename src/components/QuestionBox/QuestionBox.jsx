@@ -59,9 +59,9 @@ class QuestionBox extends Component {
     if (mode === 'test') {
       onTimerStop()
     }
-    setTimeout(function() {
+    setTimeout(() => {
       this.setState({ animate: false })
-    }.bind(this), DELAY-400)
+    }, DELAY-400)
     setTimeout(onAnswer.bind(null, answer === this.state.correct), DELAY)
   }
 

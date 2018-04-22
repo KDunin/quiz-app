@@ -1,16 +1,24 @@
 .navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  padding: 15px 20px;
+
+  background-color: $primary-color;
+  box-shadow: $box-shadow;
   color: white;
-  background: $primary-color;
+
+  &__button {
+    font-size: 16px;
+  }
+
   &__list {
     display: flex;
-    justify-content: flex-end;
-    margin: 0;
     list-style-type: none;
+    
     &__item {
-      margin: 20px;
       padding: 8px 16px;
-
-      border: 0;
+      margin: 0 10px;
       border-radius: 2px;
     
       background: $third-color;

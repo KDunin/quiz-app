@@ -10,7 +10,7 @@ const Style = {
 const Homepage = () => (
   <div className={Style.homepage}>
     <div className={joinClasses(Style.title, Style.animation)}>
-      Super quiz
+      IT quiz
     </div>
   </div>
 )

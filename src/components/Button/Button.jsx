@@ -9,8 +9,8 @@ const Style = {
   float:      'button__float',
 }
 
-const Button = ({ id, className, text, onClick, icon, float }) => (
-  switchButtonType(id, icon, float, className, text, onClick)
+const Button = ({ id, className, text, onClick, icon, float, name, type }) => (
+  switchButtonType(id, icon, float, className, text, name, type, onClick)
 )
 
 Button.propTypes = {
@@ -25,11 +25,11 @@ Button.propTypes = {
 }
 export default Button
 
-const switchButtonType = (id, icon, float, className, text, onClick) => {
+const switchButtonType = (id, icon, float, className, text, name, type, onClick) => {
   if (icon) {
     return (
       <button
-        className={Style.iconButton}
+        className={joinClasses(Style.iconButton, className)}
         onClick={onClick}
         id={id}
       >
@@ -39,7 +39,7 @@ const switchButtonType = (id, icon, float, className, text, onClick) => {
   } else if (float) {
     return (
       <button
-        className={Style.float}
+        className={joinClasses(Style.float, className)}
         onClick={onClick}
         id={id}
       >
@@ -51,6 +51,8 @@ const switchButtonType = (id, icon, float, className, text, onClick) => {
       <button 
         className={joinClasses(Style.button, className)}
         onClick={onClick}
+        name={name}
+        type={type}
         id={id}
       >
         {text}

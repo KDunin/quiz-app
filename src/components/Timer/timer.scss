@@ -6,7 +6,8 @@
   padding: 20px 10px;
 
   box-shadow: $box-shadow;
-
+  background-color: white;
+  
   opacity: 1;
   will-change: opacity;
   transition: opacity 500ms ease-out;
@@ -31,7 +32,7 @@
   &__counter {
     top: 0;
     position: absolute;
-    margin: 0 50%;
+    left: calc(50% - 10px);
   }
 
   &__hidden {

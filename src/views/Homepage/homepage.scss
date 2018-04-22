@@ -3,10 +3,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 16px;
+  height: calc(100vh - 75px);
 
   &__title {
-
+    margin-top: -60px;
     font-size: 100px;
     font-weight: bold;
   }
