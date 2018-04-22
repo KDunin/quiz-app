@@ -44,4 +44,11 @@
     font-style: normal;
     font-family: 'Material Icons';
   }
+
+  &__disabled {
+    color: rgb(175, 174, 174);
+    &:hover {
+      background: none !important;
+    }
+  }
 }

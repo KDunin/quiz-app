@@ -9,6 +9,7 @@ import { showForm, hideForm } from './form'
 export const UPDATE_QUESTIONS_LIST = 'UPDATE_QUESTIONS_LIST'
 export const ADD_NEW_QUESTION      = 'ADD_NEW_QUESTION'
 export const DELETE_QUESTION       = 'DELETE_QUESTION'
+export const UPDATE_QUESTION       = 'UPDATE_QUESTION'
 
 export const getQuestionsList = (id) => (dispatch) => {
   switchUserTypeAction(fetchUserQuestionsData, fetchQuestions)(id)
@@ -34,6 +35,7 @@ export const editQuestion = (data) => (dispatch) => {
   dispatch(hideForm())
   
   switchUserTypeAction(postUserQuestionData, postQuestionData)(getCookie('id'), data)
+    .then(response => dispatch(updateQuestion(parseQuestionServerData(response))))
     .catch(error => dispatch(showToast(error)))
 }
 
@@ -48,6 +50,12 @@ export const updateQuestionsList = (questions) => ({
   type:    UPDATE_QUESTIONS_LIST,
   payload: {
     questions,
+  },
+})
+export const updateQuestion = (question) => ({
+  type:    UPDATE_QUESTION,
+  payload: {
+    question,
   },
 })
 

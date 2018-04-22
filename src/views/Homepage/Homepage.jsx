@@ -10,7 +10,12 @@ const Style = {
 const Homepage = () => (
   <div className={Style.homepage}>
     <div className={joinClasses(Style.title, Style.animation)}>
-      IT quiz
+      <div>Uwaga</div>
+      <br />
+      <ul>
+        <li>Aplikacja w trakcie budowy - dostępne jest tylko 10 pytań.</li>
+        <li>Na widoku pytania można podejrzeć wszystkie pytania wraz z odpowiedziami oraz dodawać/usuwać/edytować własne pytania, przypisane do konta.</li>
+      </ul>
     </div>
   </div>
 )

@@ -22,14 +22,14 @@ const Login = ({ handleLogIn, handleSignUp }) => (
         id='username'
         name='username'
         type='text'
-        placeholder='Podaj nick'
+        placeholder='Nazwa użytkownika'
         className={Style.input}
       />
       <input
         id='password'
         name='password'
         type='password'
-        placeholder='Podaj hasło'
+        placeholder='Hasło'
         className={Style.input}        
       />
       <div className={Style.buttons}>

@@ -80,7 +80,7 @@ export const handleResponse = (response) => {
   }
 
   if (!response.ok) {
-    throw Error(response.statusText)
+    return response.json().then(handleError)
   }
   return response.json()
 }
@@ -92,4 +92,8 @@ const switchErrorMessage = (status) => {
     case STATUS_NOT_FOUND: return 'Błedny adres zapytania.'
     case STATUS_INTERNAL: return 'Błąd serwera.'
   }
-} 
+}
+
+const handleError = ({ error }) => {
+  throw Error(error.message)
+}

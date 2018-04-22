@@ -20,6 +20,8 @@ export const userLogIn = (username, password) => (dispatch) => {
     .catch(error => dispatch(showToast(error)))
 }
 export const userLogOut = () => {
+  deleteCookie('id')
+  deleteCookie('type')
   deleteCookie('token')
   window.location.assign(process.env.PUBLIC_URL)
 }

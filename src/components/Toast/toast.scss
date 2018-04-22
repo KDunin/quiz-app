@@ -1,6 +1,7 @@
 .toast {
   bottom: 0;
-  left: calc(50% - 150px);
+  left: 50%;
+  transform: translateX(-50%);
   height: 65px;
   min-width: 300px;
   padding: 0 10px;

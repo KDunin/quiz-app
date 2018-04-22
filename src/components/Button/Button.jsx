@@ -1,35 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { joinClasses } from '../../utils/classUtils'
+import { joinClasses, conditionClass } from '../../utils/classUtils'
 
 const Style = {
   button:     'button',
   iconButton: 'button__iconButton',
   icon:       'button__icon',
   float:      'button__float',
+  disabled:   'button__disabled',
 }
 
-const Button = ({ id, className, text, onClick, icon, float, name, type }) => (
-  switchButtonType(id, icon, float, className, text, name, type, onClick)
-)
-
-Button.propTypes = {
-  /** */
-  className: PropTypes.string,
-  /** */
-  text:      PropTypes.string,
-  /** */
-  onClick:   PropTypes.func,
-  /** */
-  icon:      PropTypes.bool,
-}
-export default Button
-
-const switchButtonType = (id, icon, float, className, text, name, type, onClick) => {
+const Button = ({ icon, disabled, className, id, onClick, text, float, type }) => {
   if (icon) {
     return (
       <button
-        className={joinClasses(Style.iconButton, className)}
+        className={joinClasses(Style.iconButton, className, conditionClass(disabled, Style.disabled))}
+        disabled={disabled}
         onClick={onClick}
         id={id}
       >
@@ -39,7 +25,8 @@ const switchButtonType = (id, icon, float, className, text, name, type, onClick)
   } else if (float) {
     return (
       <button
-        className={joinClasses(Style.float, className)}
+        className={joinClasses(Style.float, className, conditionClass(disabled, Style.disabled))}
+        disabled={disabled}        
         onClick={onClick}
         id={id}
       >
@@ -49,7 +36,8 @@ const switchButtonType = (id, icon, float, className, text, name, type, onClick)
   } else {
     return (
       <button 
-        className={joinClasses(Style.button, className)}
+        className={joinClasses(Style.button, className, conditionClass(disabled, Style.disabled))}
+        disabled={disabled}        
         onClick={onClick}
         name={name}
         type={type}
@@ -60,3 +48,23 @@ const switchButtonType = (id, icon, float, className, text, name, type, onClick)
     )
   }
 }
+
+Button.propTypes = {
+  /** */
+  className: PropTypes.string,
+  /** */
+  id:        PropTypes.string,
+  /** */
+  text:      PropTypes.string,
+  /** */
+  type:      PropTypes.string,
+  /** */
+  float:     PropTypes.bool,
+  /** */
+  icon:      PropTypes.bool,
+  /** */
+  disabled:  PropTypes.bool,
+  /** */
+  onClick:   PropTypes.func,
+}
+export default Button
