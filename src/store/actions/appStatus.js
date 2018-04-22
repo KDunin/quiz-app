@@ -21,7 +21,7 @@ export const userLogIn = (username, password) => (dispatch) => {
 }
 export const userLogOut = () => {
   deleteCookie('token')
-  window.location.assign('/')
+  window.location.assign(process.env.PUBLIC_URL)
 }
 
 export const userSignUp = (username, password) => (dispatch) => {
