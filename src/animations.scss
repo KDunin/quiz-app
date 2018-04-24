@@ -61,3 +61,17 @@
     visibility: hidden;
   }
 }
+
+.animation-grow {
+  animation: grow 1.7s ease-in-out infinite;
+}
+
+@keyframes grow {
+  0%, 40%, 60%, 100% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scaleY(3);
+    background-color: white;
+  }
+}

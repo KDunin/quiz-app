@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { mapStoreToProps } from './storeHelper'
 import { BrowserRouter } from 'react-router-dom' 
+import Login from '../Login/Login'
 import Toast from '../../components/Toast/Toast'
 import Router from '../../components/Router/Router'
+import Loader from '../../components/Loader/Loader'
 import Navigation from '../../components/Navigation/Navigation'
-import Login from '../Login/Login'
 import { getCookie } from '../../features/Cookies'
 
 const Style = {
@@ -19,6 +20,7 @@ const App = () => {
     return (
       <div className={Style.app}>
         <Login />
+        <Loader />
         <Toast />
       </div>
     )

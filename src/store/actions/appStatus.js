@@ -5,10 +5,14 @@ import { setCookie, deleteCookie } from '../../features/Cookies'
 
 export const APP_UPDATE_STATUS = 'APP_UPDATE_STATUS'
 export const APP_REGISTER_USER = 'APP_REGISTER_USER'
+export const SHOW_LOADER       = 'SHOW_LOADER'
+export const HIDE_LOADER       = 'HIDE_LOADER'
 export const SHOW_TOAST        = 'SHOW_TOAST'
 export const HIDE_TOAST        = 'HIDE_TOAST'
 
 export const userLogIn = (username, password) => (dispatch) => {
+  dispatch(showLoader())
+
   postUserCredentials({ username, password })
     .then(response => {
       setCookie('id', response.id, 60)
@@ -16,6 +20,7 @@ export const userLogIn = (username, password) => (dispatch) => {
       setCookie('token', response.token, 60)
       dispatch(updateAppStatus(parseUserServerData(response)))
       dispatch(getQuestionsList(response.id))
+      dispatch(hideLoader())
     })
     .catch(error => dispatch(showToast(error)))
 }
@@ -48,4 +53,12 @@ export const showToast = ({ message }) => ({
 
 export const hideToast = () => ({
   type: HIDE_TOAST,
+})
+
+export const showLoader = () => ({
+  type: SHOW_LOADER,
+})
+
+export const hideLoader = () => ({
+  type: HIDE_LOADER,
 })
