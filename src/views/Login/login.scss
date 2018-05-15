@@ -22,9 +22,15 @@
     margin: 10px;
     justify-content: space-between;
   }
+
   &__button {
     width: 200px;
     border-radius: 0 !important;
     padding: 10px !important;
+  }
+
+  &__error {
+    text-align: center;
+    color: red;
   }
 }

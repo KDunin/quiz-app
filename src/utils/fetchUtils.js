@@ -74,6 +74,9 @@ export const postForm = (url, data) => {
 
 export const handleResponse = (response) => {
   const error = switchErrorMessage(response.status)
+  if (response.url === SERVER_ADDRESS ) {
+    return
+  }
 
   if (error) {
     throw Error(error)

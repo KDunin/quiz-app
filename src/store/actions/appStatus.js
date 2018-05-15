@@ -22,7 +22,10 @@ export const userLogIn = (username, password) => (dispatch) => {
       dispatch(getQuestionsList(response.id))
       dispatch(hideLoader())
     })
-    .catch(error => dispatch(showToast(error)))
+    .catch(error => {
+      dispatch(hideLoader())
+      dispatch(showToast(error))
+    })
 }
 export const userLogOut = () => {
   deleteCookie('id')
