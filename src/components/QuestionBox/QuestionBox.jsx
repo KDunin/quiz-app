@@ -93,17 +93,18 @@ class QuestionBox extends Component {
           />
         </div>
       )
-    }
-    return (
-      <div className={conditionClass(started, Style.box, Style.hidden)}>
-        <div className={conditionClass(animate, Style.visible, Style.hidden)}>
-          <span className={Style.text}>{question}</span>
-          <div className={Style.answers}>
-            {this.renderAnswers()}
+    } else {
+      return (
+        <div className={conditionClass(started, Style.box, Style.hidden)}>
+          <div className={conditionClass(animate, Style.visible, Style.hidden)}>
+            <span className={Style.text}>{question}</span>
+            <div className={Style.answers}>
+              {this.renderAnswers()}
+            </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
 }
 

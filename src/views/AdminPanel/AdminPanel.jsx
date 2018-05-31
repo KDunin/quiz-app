@@ -7,7 +7,7 @@ import QuestionForm from '../../components/QuestionForm/QuestionForm'
 import QuestionDataRow from '../../components/QuestionDataRow/QuestionDataRow'
 import Button from '../../components/Button/Button'
 
-const TABLE_HEADERS = ['Pytanie', 'Opcje', 'Odpowiedź', 'Akcje']
+const TABLE_HEADERS = ['Kategoria', 'Pytanie', 'Opcje', 'Odpowiedź', 'Akcje']
 
 const Style = {
   wrapper: 'admin-panel',

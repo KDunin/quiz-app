@@ -48,7 +48,7 @@ UniversalTable.propTypes = {
   /** */
   headers:   PropTypes.array,
   /** */
-  data:      PropTypes.array,
+  data:      PropTypes.array.isRequired,
   /** */
   renderRow: PropTypes.func,
 }

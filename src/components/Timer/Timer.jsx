@@ -12,17 +12,16 @@ const Style = {
   hidden:   'timer__hidden',
 }
 
-const TIME             = 10000
 const UPDATE_INTERVAL  = 20
-const UPDATE_INCREMENT = 100 / (TIME / UPDATE_INTERVAL)
-const COUNTER          = TIME/1000
 
 class Timer extends PureComponent {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      width:   0,
-      counter: COUNTER,
+      time:      props.time,
+      width:     0,
+      counter:   props.time / 1000,
+      increment: 100 / (props.time / UPDATE_INTERVAL),
     }
     this.runTimer = this.runTimer.bind(this)
   }
@@ -30,10 +29,11 @@ class Timer extends PureComponent {
   componentWillReceiveProps(nextProps) {
     clearInterval(this.counterInterval)
     clearInterval(this.timerInterval)
-    if (!nextProps.loading) {
+    const { loading, time } = nextProps
+    if (!loading) {
       return
     }
-    this.setState({ width: 0, counter: COUNTER }, this.runTimer)
+    this.setState({ width: 0, counter: time / 1000, increment: 100 / (time / UPDATE_INTERVAL) }, this.runTimer)
   }
   componentWillUnmount() {
     if (this.counterInterval && this.timerInterval) {
@@ -43,8 +43,9 @@ class Timer extends PureComponent {
   }
   runTimer() {
     const { onTimerStop } = this.props
+    const { counter, increment } = this.state
     let width = 0
-    let counter = COUNTER
+    let counter2 = counter
     this.timerInterval = setInterval(() => {
       width = Math.min(100, width)
       if (width === 100) {
@@ -52,13 +53,13 @@ class Timer extends PureComponent {
         clearInterval(this.timerInterval)
         onTimerStop()
       } else {
-        width += UPDATE_INCREMENT
+        width += increment
         this.setState({ width })
       }
     }, UPDATE_INTERVAL)
     this.counterInterval = setInterval(() => {
-      --counter
-      this.setState({ counter })
+      --counter2
+      this.setState({ counter: counter2 })
     }, 1000)
   }
 

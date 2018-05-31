@@ -1,7 +1,7 @@
 import { showToast } from './appStatus'
 import { fetchQuestions, postNewQuestionData, postQuestionData, deleteQuestionData } from '../../data/questions'
 import { deleteUserQuestionData, postUserQuestionData, postNewUserQuestionData, fetchUserQuestionsData } from '../../data/userQuestions'
-import { parseQuestionServerData } from '../mappers/questions'
+import { separateQuestionsByCategory, parseQuestionServerData } from '../mappers/questions'
 import { findById } from '../../utils/dataUtils'
 import { getCookie } from '../../features/Cookies'
 import { showForm, hideForm } from './form'
@@ -13,7 +13,7 @@ export const UPDATE_QUESTION       = 'UPDATE_QUESTION'
 
 export const getQuestionsList = (id) => (dispatch) => {
   switchUserTypeAction(fetchUserQuestionsData, fetchQuestions)(id)
-    .then((questions) => dispatch(updateQuestionsList(questions.map(parseQuestionServerData))))
+    .then(questions => dispatch(updateQuestionsList(separateQuestionsByCategory(questions))))
     .catch(error => dispatch(showToast(error)))
 }
 
@@ -26,7 +26,7 @@ export const createQuestion = (data) => (dispatch) => {
 }
 
 export const editQuestionForm = (id) => (dispatch, getState) => {
-  const questionData = getState().questions.find(findById(id))
+  const questionData = getState().questions.All.find(findById(id))
   
   dispatch(showForm(questionData))
 }

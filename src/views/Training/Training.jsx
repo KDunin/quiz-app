@@ -54,6 +54,7 @@ class Trening extends PureComponent {
         <Rules
           started={started}
           rules={RULES}
+          mode={TRAINING}
           onClick={this.handleStart}
         />
         <div className={conditionClass(started, Style.animation, Style.hidden)}>
