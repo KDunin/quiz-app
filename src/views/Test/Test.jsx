@@ -12,7 +12,7 @@ import { conditionClass } from '../../utils/classUtils'
 
 const QUESTIONS_NUMBER = 10
 export const TEST      = 'test'
-const RULES            = 'W trybie testowym, musisz odpowiedziec na 10 losowych pytan, za kazda poprawna odpowiedz otrzymujesz punkt, czas na odpowiedz jest ograniczony.'
+const RULES            = 'W trybie testowym, musisz odpowiedzieć na 10 pytań, za każdą poprawną odpowiedź otrzymujesz punkt, czas na udzielenie odpowiedzi jest ograniczony i zależy od wybranego poziomu trudności.'
 
 const Style = {
   test:      'test',
@@ -25,7 +25,7 @@ class Test extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      questions: drawRandomQuestions(props.questions),
+      questions: [],
       question:  '',
       correct:   '',
       answers:   [],
@@ -33,24 +33,31 @@ class Test extends Component {
       counter:   0,
       started:   false,
       summary:   false,
+      category:  'All',
+      level:     '1',
     }
-    this.handleAnswer = this.handleAnswer.bind(this)
     this.handleStart = this.handleStart.bind(this)
+    this.handleAnswer = this.handleAnswer.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.handleTimeExpire = this.handleTimeExpire.bind(this)
+    this.drawRandomQuestions = this.drawRandomQuestions.bind(this)
   }
 
   shouldComponentUpdate(nextProps) {
     const { question, questions } = this.state
-    return  questions !== nextProps.questions || question !== nextProps.question
+    return questions !== nextProps.questions || question !== nextProps.question
   }
-
+  
   componentWillReceiveProps(nextProps) {
-    if (nextProps.questions === this.props.questions) {
+    const { questions } = nextProps
+    if (questions === this.props.questions) {
       return
     }
-    this.setState({
-      questions: nextProps.questions,
-    })
+    this.drawRandomQuestions(undefined, questions)
+  }
+
+  componentWillMount() {
+    this.drawRandomQuestions()
   }
 
   componentWillUnmount() {
@@ -87,9 +94,36 @@ class Test extends Component {
     this.setState(prevState => 
       Object.assign({ score: [...score, 0], counter: ++prevState.counter }, setItemsToRender(questions, question)), onTimerStart)
   }
+  
+  handleChange({ target }) {
+    const { name, value } = target
+    if (name === 'category') {
+      this.setState({ [name]: value })
+      this.drawRandomQuestions(value)
+    } else {
+      this.setState({ [name]: value })
+    }
+  }
+
+  drawRandomQuestions(category = 'All', data) {
+    const questions = data || this.props.questions
+    if (isEmpty(questions.All)) {
+      return
+    }
+    const randomQuestions = []
+    let i = randomQuestions.length
+    while (i < QUESTIONS_NUMBER) {
+      const question = questions[category][randomNumber(questions[category].length)]
+      if (!randomQuestions.includes(question)) {
+        randomQuestions.push(question)
+        i++
+      }
+    }
+    this.setState({ questions: randomQuestions }) 
+  }
 
   render() {
-    const { question, answers, correct, started, score, counter, summary } = this.state
+    const { question, answers, correct, started, score, counter, summary, level } = this.state
     const { timer, onTimerStop } = this.props
     if (summary) {
       return (
@@ -103,7 +137,9 @@ class Test extends Component {
         <Rules
           started={started}
           rules={RULES}
+          mode={TEST}
           onClick={this.handleStart}
+          onChange={this.handleChange}
         />
         <div className={conditionClass(started, Style.animation, Style.hidden)}>
           <ScoreCounter
@@ -118,13 +154,15 @@ class Test extends Component {
             question={question}
             answers={answers}
             correct={correct}
-            onAnswer={this.handleAnswer}
             mode={TEST}
             timer={timer}
-            onTimeExpire={this.handleTimeExpire}
             onTimerStop={onTimerStop}
+            onAnswer={this.handleAnswer}
+            onTimeExpire={this.handleTimeExpire}
           />
-          <Timer />
+          <Timer
+            time={switchLevelToTime(level)}
+          />
         </div>
       </div>
     )
@@ -139,7 +177,7 @@ Test.defaultProps = {
 
 Test.propTypes = {
   /** */
-  questions:    PropTypes.array,
+  questions:    PropTypes.object,
   /** */
   timer:        PropTypes.bool,
   /** */
@@ -147,7 +185,6 @@ Test.propTypes = {
   /** */
   onTimerStop:  PropTypes.func,
 }
-
 
 const setItemsToRender = (questions, question) => {
   const itemToRender = questions.filter(item => item.question !== question)[randomNumber(questions.length - 1)]
@@ -160,18 +197,10 @@ const setItemsToRender = (questions, question) => {
   }
 }
 
-const drawRandomQuestions = (questions) => {
-  if (isEmpty(questions)) {
-    return
+const switchLevelToTime = (level) => {
+  switch (level) {
+    case '1': return 15000
+    case '2': return 10000
+    case '3': return 5000
   }
-  const randomQuestions = []
-  let i = randomQuestions.length
-  while (i < QUESTIONS_NUMBER) {
-    const question = questions[randomNumber(questions.length)]
-    if (!randomQuestions.includes(question)) {
-      randomQuestions.push(question)
-      i++
-    }
-  }
-  return randomQuestions
 }

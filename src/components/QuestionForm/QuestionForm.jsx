@@ -21,6 +21,7 @@ class QuestionForm extends Component {
       b:        '',
       c:        '',
       d:        '',
+      category: '',
       correct:  undefined,
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -28,25 +29,19 @@ class QuestionForm extends Component {
   }
 
   static getDerivedStateFromProps(nextProps) {
-    return {
-      question: nextProps.question,
-      a:        nextProps.a,
-      b:        nextProps.b,
-      c:        nextProps.c,
-      d:        nextProps.d,
-      correct:  nextProps.correct,
-    }
+    return nextProps
   }
 
   handleSubmit(event) {
     event.preventDefault()
-    const { question, a, b, c, d, correct } = this.state
+    const { question, a, b, c, d, correct, category } = this.state
     const { onSubmit, id } = this.props
     onSubmit({
       answers: [a, b, c, d],
-      id,
-      question,
       correct: correct || a,
+      question,
+      category,
+      id,
     })
   }
 
@@ -55,11 +50,26 @@ class QuestionForm extends Component {
   }
 
   render() {
-    const { question, a, b, c, d, correct } = this.state 
+    const { question, a, b, c, d, correct, category } = this.state 
     const { visible, id } = this.props
     
     return (
       <form className={conditionClass(visible, Style.form, Style.hidden)} onSubmit={this.handleSubmit}>
+        <span className={Style.label}>Kategoria</span>
+        <select
+          name="category"
+          value={category}
+          onChange={this.handleChange}
+          className={Style.textarea}
+          required
+        >
+          <option value=''>Wybierz Kategorię</option>
+          <option value='Cinema'>Filmy i seriale</option>
+          <option value='Computers'>Komputery</option>
+          <option value='Games'>Gry</option>
+          <option value='Sport'>Sport</option>
+          <option value='World'>Świat</option>
+        </select>
         <span className={Style.label}>Pytanie</span>
         <textarea 
           name="question"

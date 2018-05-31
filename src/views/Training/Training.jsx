@@ -9,7 +9,7 @@ import { randomNumber } from '../../utils/numberUtils'
 import { conditionClass } from '../../utils/classUtils'
 
 export const TRAINING = 'training'
-const RULES = 'W trybie treningowy, czas na odpowiedz jest nieograniczony, przy wybraniu bledniej odpowiedzi, zostanie podswietlona rowniez poprawna odpowiedz.'
+const RULES = 'W trybie treningowy, czas na odpowiedź jest nieograniczony, po wybraniu błędniej odpowiedzi, zostanie podświetlona rownież prawidłowa odpowiedź.'
 
 const Style = {
   training:  'training',
@@ -54,6 +54,7 @@ class Trening extends PureComponent {
         <Rules
           started={started}
           rules={RULES}
+          mode={TRAINING}
           onClick={this.handleStart}
         />
         <div className={conditionClass(started, Style.animation, Style.hidden)}>

@@ -1,3 +1,3 @@
 export const mapStoreToProps = ({ questions }) => ({
-  questions,
+  questions: questions.All,
 })

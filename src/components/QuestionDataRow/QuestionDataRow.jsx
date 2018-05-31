@@ -8,8 +8,9 @@ const Style = {
   actions: 'question-data-row__actions',
 }
 
-const QuestionDataRow = ({ id, question, answers, user, correct, onEdit, onDelete }) => (
+const QuestionDataRow = ({ id, question, answers, user, correct, category, onEdit, onDelete }) => (
   <tr key={id}>
+    <td>{category}</td>
     <td>{question}</td>
     <td>
       <span className={Style.answer}>{`A: ${answers[0]}`}</span>
@@ -46,6 +47,8 @@ QuestionDataRow.propTypes = {
   user:     PropTypes.string,
   /** */
   question: PropTypes.string,
+  /** */
+  category: PropTypes.string,
   /** */
   answers:  PropTypes.array,
   /** */

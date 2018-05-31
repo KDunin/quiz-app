@@ -18,8 +18,8 @@ class Login extends PureComponent {
   constructor() {
     super()
     this.state = {
-      username: '',
-      password: '',
+      username: 'user',
+      password: 'user',
       error:    false,
     }
     this.handleChange = this.handleChange.bind(this)
@@ -60,11 +60,12 @@ class Login extends PureComponent {
   }
 
   render() {
-    const { error } = this.state
+    const { error, username, password } = this.state
     const { loading } = this.props
 
     return (
       <div className={Style.box}>
+        <h2>Możesz założyć własne konto, lub skorzystać z domyślnego.</h2>
         <form 
           className={Style.login}
           onSubmit={this.handleSignIn}
@@ -74,6 +75,7 @@ class Login extends PureComponent {
             name='username'
             type='text'
             placeholder='Nazwa użytkownika'
+            value={username}
             className={Style.input}
             onChange={this.handleChange}
           />
@@ -81,6 +83,7 @@ class Login extends PureComponent {
             id='password'
             name='password'
             type='password'
+            value={password}
             placeholder='Hasło'
             className={Style.input}
             onChange={this.handleChange}
