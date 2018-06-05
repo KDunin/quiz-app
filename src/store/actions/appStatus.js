@@ -35,9 +35,17 @@ export const userLogOut = () => {
 }
 
 export const userSignUp = (username, password) => (dispatch) => {
+  dispatch(showLoader())
+
   postNewUserCredentials({ username, password })
-    .then(() => dispatch(showToast({ message: 'Konto utworzone, możesz się zalogować!' })))
-    .catch(error => dispatch(showToast(error)))
+    .then(() => {
+      dispatch(showToast({ message: 'Konto utworzone, możesz się zalogować!' }))
+      dispatch(hideLoader())
+    })
+    .catch(error => {
+      dispatch(showToast(error))
+      dispatch(hideLoader())
+    })
 }
 
 const updateAppStatus = (appStatus) => ({

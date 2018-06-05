@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { mapDispatchToProps } from './storeHelper'
+import { mapStoreToProps, mapDispatchToProps } from './storeHelper'
 import Button from '../../components/Button/Button'
+import { Loader } from '../../components/Loader/Loader'
 
 const Style = {
   box:     'login',
@@ -60,6 +61,7 @@ class Login extends PureComponent {
 
   render() {
     const { error } = this.state
+    const { loading } = this.props
 
     return (
       <div className={Style.box}>
@@ -89,23 +91,30 @@ class Login extends PureComponent {
               className={Style.button}      
               text='Zaloguj'
               type='submit'
+              disabled={loading}
             />
             <Button
               className={Style.button} 
               onClick={this.handleSignUp}
               text='Zarejestruj'
               type='button'
+              disabled={loading}
             />
           </div>
         </form>
+        <Loader
+          loading={loading}
+        />
       </div>
     )
   }
 }
 
-export default connect(null, mapDispatchToProps)(Login)
+export default connect(mapStoreToProps, mapDispatchToProps)(Login)
 
 Login.propTypes = {
+  /** */
+  loading:  PropTypes.bool,
   /** */
   onLogIn:  PropTypes.func,
   /** */

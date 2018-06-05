@@ -6,7 +6,6 @@ import { BrowserRouter } from 'react-router-dom'
 import Login from '../Login/Login'
 import Toast from '../../components/Toast/Toast'
 import Router from '../../components/Router/Router'
-import Loader from '../../components/Loader/Loader'
 import Navigation from '../../components/Navigation/Navigation'
 import { getCookie } from '../../features/Cookies'
 
@@ -20,7 +19,6 @@ const App = () => {
     return (
       <div className={Style.app}>
         <Login />
-        <Loader />
         <Toast />
       </div>
     )
