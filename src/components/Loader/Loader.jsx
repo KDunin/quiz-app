@@ -1,6 +1,4 @@
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
-import { mapDispatchToProps } from './storeHelper'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 const Style = {
@@ -11,27 +9,21 @@ const Style = {
   hidden:  'loader--hidden',
 }
 
-export class Loader extends PureComponent {
-  render() {
-    const { loading } = this.props
-    return loading ? (
-      <div className={Style.wrapper}>
-        <div className={Style.text}>Logowanie, proszę czekać...</div>
-        <div className={Style.blocks}>
-          <div className={Style.block}></div>
-          <div className={Style.block}></div>
-          <div className={Style.block}></div>
-          <div className={Style.block}></div>
-          <div className={Style.block}></div>
-        </div>
+export const Loader = ({ loading }) => 
+  loading ? (
+    <div className={Style.wrapper}>
+      <div className={Style.blocks}>
+        <div className={Style.block}></div>
+        <div className={Style.block}></div>
+        <div className={Style.block}></div>
+        <div className={Style.block}></div>
+        <div className={Style.block}></div>
       </div>
-    ) : (
-      <div className={Style.hidden}></div>
-    )
-  }
-}
-
-export default connect(mapDispatchToProps)(Loader)
+      <div className={Style.text}>Proszę czekać...</div>
+    </div>
+  ) : (
+    <div className={Style.hidden}></div>
+  )
 
 Loader.propTypes = {
   loading: PropTypes.bool,
