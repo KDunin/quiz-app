@@ -92,7 +92,16 @@
     flex-wrap: wrap;
     justify-content: center;
 
-    .fab {
+    #google-sign-in-button {
+      margin-top: 25px;
+
+      .abcRioButtonBlue, .abcRioButtonIcon {
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+      }
+    }
+
+    .fa-facebook-f {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -101,24 +110,10 @@
       border-radius: 50%;
       margin-top: 20px;
       transition: all 0.2s linear;
-
-      &:hover {
-        color: #ffffff;
-      }
-    }
-
-    .fa-google {
-      background-color: rgba(255, 0, 0, 0.5);
-
-      &:hover {
-        background-color: rgba(255, 0, 0, 0.6);
-      }
-    }
-
-    .fa-facebook-f {
       background-color: rgba(0, 0, 255, 0.5);
 
       &:hover {
+        color: #ffffff;
         background-color: rgba(0, 0, 255, 0.6);
       }
     }

@@ -1,4 +1,4 @@
-import { postUserCredentials, postNewUserCredentials } from '../../data/appStatus'
+import { postUserCredentials, postNewUserCredentials, postGoogleCredentials } from '../../data/appStatus'
 import { getQuestionsList } from './questions'
 import { parseUserServerData } from '../mappers/appStatus'
 import { setCookie, deleteCookie } from '../../features/Cookies'
@@ -27,10 +27,13 @@ export const userLogIn = (username, password) => (dispatch) => {
       dispatch(showToast(error))
     })
 }
+
 export const userLogOut = () => {
   deleteCookie('id')
   deleteCookie('type')
   deleteCookie('token')
+  const auth2 = window.gapi.auth2.getAuthInstance()
+  auth2.signOut()
   window.location.assign(process.env.PUBLIC_URL)
 }
 
@@ -45,6 +48,20 @@ export const userSignUp = (username, password) => (dispatch) => {
     .catch(error => {
       dispatch(showToast(error))
       dispatch(hideLoader())
+    })
+}
+
+export const googleSignIn = (email, token) => (dispatch) => {
+  postGoogleCredentials({ email, token })
+    .then(response => {
+      setCookie('id', response.id, 60)
+      setCookie('type', response.type, 60)
+      setCookie('token', response.token, 60)
+      dispatch(updateAppStatus(parseUserServerData(response)))
+      dispatch(getQuestionsList(response.id))
+    })
+    .catch(error => {
+      dispatch(showToast(error))
     })
 }
 

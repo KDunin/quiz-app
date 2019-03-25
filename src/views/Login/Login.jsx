@@ -22,6 +22,8 @@ const Style = {
   facebook: 'fab fa-facebook-f',
 }
 
+const GOOGLE_BUTTON_ID = 'google-sign-in-button'
+
 class Login extends PureComponent {
   constructor() {
     super()
@@ -34,6 +36,18 @@ class Login extends PureComponent {
     this.handleSignIn = this.handleSignIn.bind(this)
     this.handleSignUp = this.handleSignUp.bind(this)
     this.renderError = this.renderError.bind(this)
+    this.handleGoogleSignIn = this.handleGoogleSignIn.bind(this)
+  }
+
+  componentDidMount() {
+    window.gapi.signin2.render(
+      GOOGLE_BUTTON_ID, {
+        width:     50,
+        height:    50,
+        theme:     'dark',
+        onsuccess: this.handleGoogleSignIn,
+      }
+    )
   }
 
   handleChange({ target }) {
@@ -65,6 +79,14 @@ class Login extends PureComponent {
       return this.setState({ error: true })
     }
     this.props.onSignUp(username, password)
+  }
+
+  handleGoogleSignIn(googleUser) {
+    const profile = googleUser.getBasicProfile()
+    const token = googleUser.getAuthResponse().id_token
+    const email = profile.getEmail()
+
+    this.props.onGoogleLogIn(email, token)
   }
 
   render() {
@@ -122,13 +144,7 @@ class Login extends PureComponent {
                 type='button'
                 disabled={ loading }
               />
-              <Button
-                className={ Style.google }
-                onClick={ this.handleSignUp }
-                disabled={ loading }
-                type='button'
-                icon
-              />
+              <div id={ GOOGLE_BUTTON_ID } />
               <Button
                 className={ Style.facebook }
                 onClick={ this.handleSignUp }
@@ -149,9 +165,11 @@ export default connect(mapStoreToProps, mapDispatchToProps)(Login)
 
 Login.propTypes = {
   /** */
-  loading:  PropTypes.bool,
+  loading:       PropTypes.bool,
   /** */
-  onLogIn:  PropTypes.func,
+  onLogIn:       PropTypes.func,
   /** */
-  onSignUp: PropTypes.func,
+  onSignUp:      PropTypes.func,
+  /** */
+  onGoogleLogIn: PropTypes.func,
 }

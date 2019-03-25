@@ -12,16 +12,16 @@ const Style = {
 }
 
 const Navigation = ({ logOut }) => (
-  <div className={Style.navigation}>
+  <div className={ Style.navigation }>
     <Button
       text='Log out'
-      onClick={logOut}
+      onClick={ logOut }
     />
-    <div className={Style.list}>
-      <Link className={Style.item} to='/'>GŁÓWNA</Link>
-      <Link className={Style.item} to='/training'>TRENING</Link>
-      <Link className={Style.item} to='/test'>TEST</Link>
-      <Link className={Style.item} to='/admin'>PYTANIA</Link>
+    <div className={ Style.list }>
+      <Link className={ Style.item } to='/'>GŁÓWNA</Link>
+      <Link className={ Style.item } to='/training'>TRENING</Link>
+      <Link className={ Style.item } to='/test'>TEST</Link>
+      <Link className={ Style.item } to='/admin'>PYTANIA</Link>
     </div>
   </div>
 )
