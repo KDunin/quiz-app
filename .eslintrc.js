@@ -75,5 +75,6 @@ module.exports = {
     "react/jsx-uses-vars": "error",
     "react/prop-types": 1,
     "react/display-name": 0,
+    "brace-style": "error"
   },
 };

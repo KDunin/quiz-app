@@ -48,7 +48,7 @@ class Test extends Component {
     return questions !== nextProps.questions || question !== nextProps.question
   }
   
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { questions } = nextProps
     if (questions === this.props.questions) {
       return
@@ -56,7 +56,7 @@ class Test extends Component {
     this.drawRandomQuestions(undefined, questions)
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.drawRandomQuestions()
   }
 
@@ -178,6 +178,8 @@ Test.defaultProps = {
 Test.propTypes = {
   /** */
   questions:    PropTypes.object,
+  /** */
+  question:     PropTypes.object,
   /** */
   timer:        PropTypes.bool,
   /** */

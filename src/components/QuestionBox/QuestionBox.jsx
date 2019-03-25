@@ -33,7 +33,7 @@ class QuestionBox extends Component {
     this.handleAnswer = this.handleAnswer.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { question, answers, correct } = nextProps
     if (question === this.props.question) {
       return

@@ -26,21 +26,28 @@ class Timer extends PureComponent {
     this.runTimer = this.runTimer.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     clearInterval(this.counterInterval)
     clearInterval(this.timerInterval)
     const { loading, time } = nextProps
+
     if (!loading) {
       return
     }
+
     this.setState({ width: 0, counter: time / 1000, increment: 100 / (time / UPDATE_INTERVAL) }, this.runTimer)
   }
+
   componentWillUnmount() {
-    if (this.counterInterval && this.timerInterval) {
+    if (this.counterInterval) {
       clearInterval(this.counterInterval)
+    }
+
+    if (this.timerInterval) {
       clearInterval(this.timerInterval)
     }
   }
+
   runTimer() {
     const { onTimerStop } = this.props
     const { counter, increment } = this.state

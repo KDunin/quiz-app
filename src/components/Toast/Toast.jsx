@@ -12,7 +12,7 @@ class Toast extends PureComponent {
     super()
     this.hideToast = this.hideToast.bind(this)
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.text !== '') {
       this.hideToast()
     }
