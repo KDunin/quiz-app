@@ -8,7 +8,7 @@
   &__info {
     width: 50%;
     margin-top: 60px;
-    font-size: 1.5rem;
+    font-size: 1.5em;
     justify-self: center;
   }
 
@@ -19,13 +19,17 @@
     justify-content: flex-end;
     align-items: center;
     background-color: $primary-color;
+    box-shadow: $box-shadow;
   }
   
   &__contact {
-    width: 450px;
     display: flex;
-    justify-content: space-between;
     color: white;
     margin-right: 30px;
+    font-size: 25px;
+
+    .fas, .fab {
+      margin: 0 10px;
+    }
   }
 }

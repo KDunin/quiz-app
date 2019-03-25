@@ -1,19 +1,27 @@
 .question-form {
+  position: absolute;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+
   width: 432px;
-  height: calc(100vh - 65px);
+  height: calc(100vh - 69px);
   padding: 16px;
 
+  background-color: $fourth-color;
   box-shadow: $box-shadow;
+  opacity: 1;
+
+  transition: transform 0.5s ease-out, opacity 0.4s linear 0.1s;
 
   &__textarea {
     width: 100%;
     resize: none;
     padding: 10px;
     margin-bottom: 16px;
-    font-size: 16px;
+
+    font-size: 1em;
   }
 
   &__button {
@@ -21,6 +29,8 @@
   }
 
   &__hidden {
-    display: none;
+    opacity: 0;
+    transform: translateX(-450px);
+    transition: transform 0.5s ease-in, opacity 0.4s linear 0.1s;
   }
 }

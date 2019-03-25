@@ -2,22 +2,24 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 16px;
-  padding: 16px;
+  max-width: 900px;
+  margin: 0 auto 16px;
+  padding: 66px 46px 26px;
 
   box-shadow: $box-shadow;
-  background-color: white;
+  background-color: $primary-color;
+  text-align: center;
 
   opacity: 1;
   will-change: opacity;
   transition: opacity 500ms ease-out;
 
   &__text{
-    font-size: 25px;
+    font-size: 1.5em;
   }
   
   &__start {
-    margin-top: 16px;
+    margin-top: 36px;
     max-width: 200px;
   }
 
@@ -27,6 +29,7 @@
 
   &__selects {
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     justify-content: center;
     padding-top: 30px;
@@ -36,13 +39,18 @@
     display: flex;
     flex-direction: column;
     margin: 0 50px;
-    font-size: 1.5rem;
+    font-size: 1.5em;
     
     &__list {
       padding: 10px;
       margin: 10px 0;
       width: 200px;
-      font-size: 1.2rem;
+      font-size: 0.8em;
+      border-radius: 8px;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }

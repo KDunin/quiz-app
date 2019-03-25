@@ -5,10 +5,10 @@
   
   overflow-y: scroll;
   box-shadow: $box-shadow;
-  background-color: white;
+  background-color: $primary-color;
 
   font-size: 13px;
-  line-height: 2rem;
+  line-height: 2em;
   
   &__table {
     width: 100%;

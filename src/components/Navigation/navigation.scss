@@ -8,20 +8,27 @@
   box-shadow: $box-shadow;
   color: white;
 
-  &__button {
-    font-size: 16px;
-  }
-
   &__list {
     display: flex;
     list-style-type: none;
     
     &__item {
+      font-weight: bold;
       padding: 8px 16px;
       margin: 0 10px;
       border-radius: 2px;
-    
-      background: $third-color;
+      color: $featured-color;
+      transition: color 0.2s linear;
+      letter-spacing: 2px;
+
+      @media screen and (max-width: 1230px) {
+        margin: 0;
+      }
+
+      &:hover {
+        color: $featured-color-active;
+        transition: color 0.2s linear;
+      }
     }
   }
 }

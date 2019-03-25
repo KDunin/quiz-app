@@ -2,12 +2,22 @@
   display: flex;
   flex-wrap: nowrap;
 
-  &__add {
-    top: initial !important;
-    left: initial !important;
-    bottom: 20px !important;
-    right: 20px !important;
-    background-color: $third-color !important;
-    color: white !important;
+  &__add.button__float {
+    top: auto;
+    left: auto;
+    display: flex;
+    justify-content: center;
+    bottom: 20px;
+    right: 20px;
+    background-color: #000;
+    box-shadow: 0 0 1px 1px #0000006e;
+    color: $featured-color;
+    font-size: 20px;
+    transition: transform 0.2s linear;
+  }
+
+  &__close.fas {
+    transform: rotate(45deg);
+    transition: transform 0.2s linear;
   }
 }
