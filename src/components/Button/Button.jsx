@@ -5,7 +5,6 @@ import { joinClasses, conditionClass } from '../../utils/classUtils'
 const Style = {
   button:     'button',
   iconButton: 'button__iconButton',
-  icon:       'button__icon',
   float:      'button__float',
   disabled:   'button__disabled',
 }
@@ -14,12 +13,12 @@ const Button = ({ icon, disabled, className, id, onClick, text, float, type }) =
   if (icon) {
     return (
       <button
-        className={joinClasses(Style.iconButton, className, conditionClass(disabled, Style.disabled))}
+        className={joinClasses(Style.iconButton, conditionClass(disabled, Style.disabled))}
         disabled={disabled}
         onClick={onClick}
         id={id}
       >
-        <i className={Style.icon}>{text}</i>
+        <i className={className}></i>
       </button> 
     )
   } else if (float) {
@@ -30,7 +29,7 @@ const Button = ({ icon, disabled, className, id, onClick, text, float, type }) =
         onClick={onClick}
         id={id}
       >
-        <i className={Style.icon}>{text}</i>
+        <i>{text}</i>
       </button> 
     )
   } else {

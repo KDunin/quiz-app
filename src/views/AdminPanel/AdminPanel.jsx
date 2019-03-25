@@ -6,15 +6,17 @@ import UniversalTable from '../../components/UniversalTable/UniversalTable'
 import QuestionForm from '../../components/QuestionForm/QuestionForm'
 import QuestionDataRow from '../../components/QuestionDataRow/QuestionDataRow'
 import Button from '../../components/Button/Button'
+import { joinClasses, conditionClass } from '../../utils/classUtils'
 
 const TABLE_HEADERS = ['Kategoria', 'Pytanie', 'Opcje', 'Odpowiedź', 'Akcje']
 
 const Style = {
   wrapper: 'admin-panel',
-  add:     'admin-panel__add',
+  add:     'admin-panel__add fas fa-plus',
+  close:   'admin-panel__close',
 }
 
-const AdminPanel = ({ questions, onQuestionAdd, onQuestionEdit, onQuestionDelete, form, onFormHide }) => (
+const AdminPanel = ({ questions, onQuestionAdd, onQuestionEdit, onQuestionDelete, isForm, onFormHide }) => (
   <div className={Style.wrapper}>
     <QuestionForm />
     <UniversalTable
@@ -23,9 +25,8 @@ const AdminPanel = ({ questions, onQuestionAdd, onQuestionEdit, onQuestionDelete
       renderRow={renderQuestionDataRow(onQuestionEdit, onQuestionDelete)}
     />
     <Button 
-      text={form ? "close" : "add"}
-      className={Style.add}
-      onClick={form ? onFormHide : onQuestionAdd}
+      className={joinClasses(Style.add, conditionClass(isForm, Style.close, ''))}
+      onClick={isForm ? onFormHide : onQuestionAdd}
       float
     />
   </div>
@@ -37,7 +38,7 @@ AdminPanel.propTypes = {
   /** */
   questions:        PropTypes.array,
   /** */
-  form:             PropTypes.bool,
+  isForm:           PropTypes.bool,
   /** */
   onQuestionAdd:    PropTypes.func,
   /** */

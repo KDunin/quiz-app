@@ -49,8 +49,9 @@ const Homepage = () => (
     </div>
     <div className={Style.copyrights}>
       <div className={Style.contact}>
-        <span>Telefon: 669363935</span>
-        <span>Email: duninwasowiczk@gmail.com</span>
+        <i className="fas fa-envelope" title="duninwasowiczk@gmail.com"></i>
+        <i className="fas fa-phone" title="669363935"></i>
+        <i className="fab fa-github"></i>
       </div>
     </div>
   </div>

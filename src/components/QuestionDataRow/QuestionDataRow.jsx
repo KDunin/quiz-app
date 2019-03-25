@@ -19,22 +19,28 @@ const QuestionDataRow = ({ id, question, answers, user, correct, category, onEdi
       <span className={Style.answer}>{`D: ${answers[3]}`}</span>
     </td>
     <td>{switchCorrectAnswer(answers, correct)}</td>
-    <td className={Style.actions}>
-      <Button
-        id={id}
-        text='edit'
-        onClick={onEdit}
-        disabled={shouldBeDisabled(user)}
-        icon
-      />
-      <Button
-        id={id}
-        text='delete'
-        onClick={onDelete}
-        disabled={shouldBeDisabled(user)}
-        icon
-      />
-    </td>
+    {shouldBeDisabled(user) ?
+      <td className={Style.actions} title="Nie możesz edytować pytań dodanych przez inną osobę">
+        <i className="fas fa-ban"></i>
+      </td>
+      :
+      <td className={Style.actions}>
+        <Button
+          id={id}
+          className='fas fa-pen'
+          onClick={onEdit}
+          disabled={shouldBeDisabled(user)}
+          icon
+        />
+        <Button
+          id={id}
+          className='fas fa-trash'
+          onClick={onDelete}
+          disabled={shouldBeDisabled(user)}
+          icon
+        />
+      </td>
+    }
   </tr>
 )
 
