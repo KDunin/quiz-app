@@ -3,7 +3,7 @@ import { hideForm, showForm } from '../../store/actions/form'
 
 export const mapStoreToProps = ({ questions, form }) => ({
   questions: questions.All,
-  form:      form.visible,
+  isForm:    form.visible,
 })
 
 export const mapDispatchToProps = (dispatch) => ({

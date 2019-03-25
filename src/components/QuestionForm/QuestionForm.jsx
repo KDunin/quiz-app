@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { mapStoreToProps, mapDispatchToProps } from './storeHelper'
 import Button from '../Button/Button'
-import { conditionClass } from '../../utils/classUtils'
+import { conditionClass, joinClasses } from '../../utils/classUtils'
 
 const Style = {
   form:     'question-form',
@@ -54,7 +54,7 @@ class QuestionForm extends Component {
     const { visible, id } = this.props
     
     return (
-      <form className={conditionClass(visible, Style.form, Style.hidden)} onSubmit={this.handleSubmit}>
+      <form className={joinClasses(Style.form, conditionClass(visible, Style.form, Style.hidden))} onSubmit={this.handleSubmit}>
         <span className={Style.label}>Kategoria</span>
         <select
           name="category"
