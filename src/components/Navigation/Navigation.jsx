@@ -9,14 +9,12 @@ const Style = {
   navigation: 'navigation',
   list:       'navigation__list',
   item:       'navigation__list__item',
-  logOut:     'navigation__button',
 }
 
 const Navigation = ({ logOut }) => (
   <div className={Style.navigation}>
     <Button
       text='Log out'
-      className={Style.logOut}
       onClick={logOut}
     />
     <div className={Style.list}>
