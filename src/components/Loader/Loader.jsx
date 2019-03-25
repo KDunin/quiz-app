@@ -19,7 +19,6 @@ export const Loader = ({ loading }) =>
         <div className={Style.block}></div>
         <div className={Style.block}></div>
       </div>
-      <div className={Style.text}>Proszę czekać...</div>
     </div>
   ) : (
     <div className={Style.hidden}></div>

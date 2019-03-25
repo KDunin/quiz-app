@@ -5,37 +5,143 @@
   justify-content: center;
   align-items: center;
 
+  &__box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    width: calc(100% - 40px);
+    max-width: 400px;
+    height: 440px;
+    padding: 0 20px;
+
+    background-color: $primary-color;
+    box-shadow: $box-shadow;
+    border-radius: 10px;
+  }
+
+  &__user {
+    position: absolute;
+    top: -50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100px;
+    height: 100px;
+
+    background-color: $featured-color;
+    border-radius: 50%;
+    
+    .fa-user {
+      font-size: 35px;
+    }
+  }
+
   &__form {
     display: flex;
     flex-direction: column;
-    width: 500px;
-    margin-top: 20px;
+
+    width: 90%;
+    margin-top: 70px;
   }
 
   &__input {
-    padding: 20px;
-    margin: 0 10px 10px;
-    border: 1px solid $third-color;
+    display: flex;
+
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid rgba(90, 139, 175, 0.25);
+    font-size: 16px;
+    transition: border-color 0.2s linear;
+
+    &:focus-within {
+      border-color: $featured-color-active;
+      transition: border-color 0.2s linear;
+    }
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+
+    padding: 5px 10px;
+    margin-right: 10px;
+
     font-size: 20px;
+  }
+  
+  &__label {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  &__field {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: rgb(214, 214, 214);
+    font-size: 14px;
   }
 
   &__buttons {
+    margin-top: 20px;
     display: flex;
-    margin: 10px;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .fab {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      margin-top: 20px;
+      transition: all 0.2s linear;
+
+      &:hover {
+        color: #ffffff;
+      }
+    }
+
+    .fa-google {
+      background-color: rgba(255, 0, 0, 0.5);
+
+      &:hover {
+        background-color: rgba(255, 0, 0, 0.6);
+      }
+    }
+
+    .fa-facebook-f {
+      background-color: rgba(0, 0, 255, 0.5);
+
+      &:hover {
+        background-color: rgba(0, 0, 255, 0.6);
+      }
+    }
   }
 
-  &__button {
-    width: 200px;
-    border-radius: 0 !important;
-    padding: 10px !important;
+  &__button.button {
+    flex: 1 1 40%;
+    margin: 10px;
+
+    font-size: 15px;
+    padding: 10px 0;
+
     &:disabled {
-      background-color: white;
+      background-color: $fourth-color;
     }
   }
 
   &__error {
     text-align: center;
     color: red;
+  }
+
+  .loader--hidden {
+    height: 70px;
   }
 }
