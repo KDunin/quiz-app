@@ -23,6 +23,7 @@ const Style = {
 }
 
 const GOOGLE_BUTTON_ID = 'google-sign-in-button'
+const FB_ERROR = 'Musisz się zalogować do facebooka'
 
 class Login extends PureComponent {
   constructor() {
@@ -37,6 +38,7 @@ class Login extends PureComponent {
     this.handleSignUp = this.handleSignUp.bind(this)
     this.renderError = this.renderError.bind(this)
     this.handleGoogleSignIn = this.handleGoogleSignIn.bind(this)
+    this.handleFacebookSignIn = this.handleFacebookSignIn.bind(this)
   }
 
   componentDidMount() {
@@ -87,6 +89,23 @@ class Login extends PureComponent {
     const email = profile.getEmail()
 
     this.props.onGoogleLogIn(email, token)
+  }
+
+  handleFacebookSignIn(e) {
+    e.preventDefault()
+
+    window.FB.login(response => {
+      if (response.status !== 'connected') {
+        this.props.throwError(FB_ERROR)
+        return
+      }
+
+      window.FB.api('me?fields=id,email', facebookUser => {
+        const { email, id } = facebookUser
+
+        this.props.onFacebookLogIn(id, email)
+      })
+    }, { scope: 'public_profile,email' })
   }
 
   render() {
@@ -147,7 +166,7 @@ class Login extends PureComponent {
               <div id={ GOOGLE_BUTTON_ID } />
               <Button
                 className={ Style.facebook }
-                onClick={ this.handleSignUp }
+                onClick={ (e) => this.handleFacebookSignIn(e) }
                 disabled={ loading }
                 type='button'
                 icon
@@ -165,11 +184,15 @@ export default connect(mapStoreToProps, mapDispatchToProps)(Login)
 
 Login.propTypes = {
   /** */
-  loading:       PropTypes.bool,
+  loading:         PropTypes.bool,
   /** */
-  onLogIn:       PropTypes.func,
+  onLogIn:         PropTypes.func,
   /** */
-  onSignUp:      PropTypes.func,
+  onSignUp:        PropTypes.func,
   /** */
-  onGoogleLogIn: PropTypes.func,
+  onGoogleLogIn:   PropTypes.func,
+  /** */
+  onFacebookLogIn: PropTypes.func,
+  /** */
+  throwError:      PropTypes.func,
 }

@@ -1,4 +1,4 @@
-import { postUserCredentials, postNewUserCredentials, postGoogleCredentials } from '../../data/appStatus'
+import { postUserCredentials, postNewUserCredentials, postGoogleCredentials, postFacebookCredentials } from '../../data/appStatus'
 import { getQuestionsList } from './questions'
 import { parseUserServerData } from '../mappers/appStatus'
 import { setCookie, deleteCookie } from '../../features/Cookies'
@@ -15,12 +15,7 @@ export const userLogIn = (username, password) => (dispatch) => {
 
   postUserCredentials({ username, password })
     .then(response => {
-      setCookie('id', response.id, 60)
-      setCookie('type', response.type, 60)
-      setCookie('token', response.token, 60)
-      dispatch(updateAppStatus(parseUserServerData(response)))
-      dispatch(getQuestionsList(response.id))
-      dispatch(hideLoader())
+      handleSignInResponse(response, dispatch)
     })
     .catch(error => {
       dispatch(hideLoader())
@@ -32,8 +27,6 @@ export const userLogOut = () => {
   deleteCookie('id')
   deleteCookie('type')
   deleteCookie('token')
-  const auth2 = window.gapi.auth2.getAuthInstance()
-  auth2.signOut()
   window.location.assign(process.env.PUBLIC_URL)
 }
 
@@ -54,15 +47,29 @@ export const userSignUp = (username, password) => (dispatch) => {
 export const googleSignIn = (email, token) => (dispatch) => {
   postGoogleCredentials({ email, token })
     .then(response => {
-      setCookie('id', response.id, 60)
-      setCookie('type', response.type, 60)
-      setCookie('token', response.token, 60)
-      dispatch(updateAppStatus(parseUserServerData(response)))
-      dispatch(getQuestionsList(response.id))
+      handleSignInResponse(response, dispatch)
     })
     .catch(error => {
       dispatch(showToast(error))
     })
+}
+
+export const facebookSignIn = (id, email) => (dispatch) => {
+  postFacebookCredentials({ id, email })
+    .then(response => {
+      handleSignInResponse(response, dispatch)
+    })
+    .catch(error => {
+      dispatch(showToast(error))
+    })
+}
+
+const handleSignInResponse = (data, dispatch) => {
+  setCookie('id', data.id, 60)
+  setCookie('type', data.type, 60)
+  setCookie('token', data.token, 60)
+  dispatch(updateAppStatus(parseUserServerData(data)))
+  dispatch(getQuestionsList(data.id))
 }
 
 const updateAppStatus = (appStatus) => ({

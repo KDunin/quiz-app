@@ -93,12 +93,16 @@
     justify-content: center;
 
     #google-sign-in-button {
-      margin-top: 25px;
+     margin-top: 25px;
 
       .abcRioButtonBlue, .abcRioButtonIcon {
         background-color: rgba(0, 0, 0, 0.3);
         border-radius: 50%;
       }
+    }
+
+    .button__iconButton {
+      margin-top: 20px;
     }
 
     .fa-facebook-f {
@@ -108,7 +112,6 @@
       width: 45px;
       height: 45px;
       border-radius: 50%;
-      margin-top: 20px;
       transition: all 0.2s linear;
       background-color: rgba(0, 0, 255, 0.5);
 
