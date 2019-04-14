@@ -24,11 +24,13 @@
   
   &__contact {
     display: flex;
+    align-items: center;
     color: white;
     margin-right: 30px;
     font-size: 25px;
 
-    .fas, .fab {
+    .fas, .fab, .far {
+      cursor: pointer;
       margin: 0 10px;
     }
   }

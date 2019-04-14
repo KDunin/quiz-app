@@ -23,7 +23,7 @@ const Style = {
 }
 
 const GOOGLE_BUTTON_ID = 'google-sign-in-button'
-const FB_ERROR = 'Musisz się zalogować do facebooka'
+const FB_ERROR = 'Musisz zalogować się do facebooka'
 
 class Login extends PureComponent {
   constructor() {
