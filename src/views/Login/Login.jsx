@@ -42,7 +42,7 @@ class Login extends PureComponent {
   }
 
   componentDidMount() {
-    window.gapi.signin2.render(
+    window.gapi && window.gapi.signin2.render(
       GOOGLE_BUTTON_ID, {
         width:     50,
         height:    50,
